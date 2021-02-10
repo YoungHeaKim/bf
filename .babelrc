@@ -1,0 +1,32 @@
+{
+  "presets": [
+    "react",
+    "es2015",
+    "stage-3"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "~/*": "./src"
+        }
+      }
+    ],
+    [
+      "transform-builtin-extend",
+      {
+        "globals": [
+          "Error"
+        ]
+      }
+    ]
+  ]
+}
