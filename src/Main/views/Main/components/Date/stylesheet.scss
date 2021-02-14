@@ -1,0 +1,15 @@
+@import 'common/stylesheet/index.scss';
+
+.date__wrap {
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  line-height: 100px;
+  display: flex;
+  justify-content: space-between;
+
+  .date {
+    height: auto;
+    font-size: 1.5rem;
+  }
+}

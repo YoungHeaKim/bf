@@ -1,23 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from 'App.jsx';
 import './normalize.scss';
-import {ErrorBoundary} from 'components'
+// import {ErrorBoundary} from 'components';
 
 const MOUNT_NODE = document.getElementById('root');
 
-const render = (Component) => {
-  console.log('com', Component, <Component/>);
+const render = Component => {
+  console.log('com', Component, <Component />);
 
   return ReactDOM.render(
-    // <ErrorBoundary>
-      <BrowserRouter>
-        <Component/>
-      </BrowserRouter>
-    // </ErrorBoundary>
-    ,
-    MOUNT_NODE,
+    // <Router>
+    //   <ErrorBoundary>
+    <BrowserRouter>
+      <Component />
+    </BrowserRouter>,
+    //  </ErrorBoundary>
+    // <Router>,
+    MOUNT_NODE
   );
 };
 

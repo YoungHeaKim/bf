@@ -1,0 +1,13 @@
+@import 'common/stylesheet/index.scss';
+
+.logo__Wrap {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 2px solid;
+  text-align: center;
+
+  .logo {
+    color: blue;
+  }
+}
