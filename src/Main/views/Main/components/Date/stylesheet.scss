@@ -8,6 +8,11 @@
   display: flex;
   justify-content: space-between;
 
+  .date__btn {
+    color: grey;
+    font-size: 2rem;
+  }
+
   .date {
     height: auto;
     font-size: 1.5rem;

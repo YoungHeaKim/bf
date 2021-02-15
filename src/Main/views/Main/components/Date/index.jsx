@@ -17,9 +17,13 @@ const Date = () => {
 
   return (
     <div className={cx('date__wrap')}>
-      <button onClick={prevDate}>&lt;</button>
+      <button className={cx('date__btn')} onClick={prevDate}>
+        &lt;
+      </button>
       <div className={cx('date')}>{date}</div>
-      <button onClick={nextDate}>&gt;</button>
+      <button className={cx('date__btn')} onClick={nextDate}>
+        &gt;
+      </button>
     </div>
   );
 };
