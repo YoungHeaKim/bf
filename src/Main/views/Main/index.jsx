@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Header } from 'Main/components/index.js';
+import { Date } from 'Main/components/index';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Date } from './components/index';
 import { Book } from '../index';
 import moment from 'moment';
 
@@ -24,14 +23,13 @@ const Main = () => {
   };
 
   return (
-    <div>
-      <Header />
+    <div className={cx('main__wrap')}>
       <Date
         date={date}
         prevDate={() => prevDate()}
         nextDate={() => nextDate()}
       />
-      <Book />
+      <Book date={date} />
     </div>
   );
 };

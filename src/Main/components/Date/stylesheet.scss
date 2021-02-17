@@ -1,20 +1,22 @@
 @import 'common/stylesheet/index.scss';
 
 .date__wrap {
-  width: 300px;
+  width: 30%;
   height: 100px;
   margin: 0 auto;
-  line-height: 100px;
   display: flex;
   justify-content: space-between;
 
   .date__btn {
     color: grey;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
-  .date {
-    height: auto;
+  .date__container {
     font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 20px;
   }
 }

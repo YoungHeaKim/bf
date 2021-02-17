@@ -1,12 +1,9 @@
 @import 'common/stylesheet/index.scss';
 
 .logo__Wrap {
-  width: 100%;
+  width: 90%;
   height: auto;
   margin: 0 auto;
   text-align: center;
-
-  .logo {
-    color: blue;
-  }
+  box-shadow: 8px 5px 5px $color-box;
 }

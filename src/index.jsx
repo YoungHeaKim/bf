@@ -8,7 +8,7 @@ import './normalize.scss';
 const MOUNT_NODE = document.getElementById('root');
 
 const render = Component => {
-  console.log('com', Component, <Component />);
+  // console.log('com', Component, <Component />);
 
   return ReactDOM.render(
     // <Router>

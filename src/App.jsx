@@ -3,12 +3,13 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { Main } from 'Main/views/index.js';
 import styles from 'stylesheet.scss';
 import classNames from 'classnames/bind';
-
+import { Header } from 'Main/components/index';
 const cx = classNames.bind(styles);
 
 const App = () => {
   return (
     <div className={cx('app')}>
+      <Header />
       <Switch>
         <Route path="/" component={Main} />
       </Switch>

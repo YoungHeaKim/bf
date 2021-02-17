@@ -1,0 +1,34 @@
+@import 'common/stylesheet/index.scss';
+
+.book__container {
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 8px 5px 5px $color-box;
+  padding: 0 20px;
+  display: flex;
+
+  .book__nickname {
+    width: 20%;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 40px;
+  }
+
+  .book__list__wrap {
+    width: 60%;
+
+    .book__item {
+      width: 100%;
+      display: flex;
+      border-bottom: 1px solid $color-secondary;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+
+  .book__total {
+    width: 20%;
+    text-align: center;
+    line-height: 40px;
+  }
+}
