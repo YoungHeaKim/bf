@@ -14,4 +14,13 @@
     font-size: 1.3rem;
     padding-left: 20px;
   }
+
+  .book__container {
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 8px 5px 5px $color-box;
+    padding: 0 20px;
+    display: flex;
+    text-align: center;
+  }
 }

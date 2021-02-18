@@ -6,16 +6,16 @@ import { StoreItem } from '../index';
 
 const cx = classNames.bind(styles);
 
-const Store = ({ book, key }) => {
+const Store = ({ book, key, className, onClick }) => {
   // TODO: totalPrice값 가져오기
   return (
-    <div key={key} className={cx('book__container')}>
+    <button key={key} className={cx(className)} onClick={onClick}>
       <div className={cx('book__nickname')}>{book.nickName}</div>
       <div className={cx('book__list__wrap')}>
         <StoreItem className={cx('book__item')} items={book.items} />
       </div>
       <div className={cx('book__total')}>total price</div>
-    </div>
+    </button>
   );
 };
 

@@ -1,1 +1,28 @@
 @import 'common/stylesheet/index.scss';
+
+.nav__wrap {
+  display: flex;
+  list-style: none;
+  width: 90%;
+  height: 50px;
+  background-color: $color-box;
+  margin: 0 auto;
+
+  .nav__list {
+    width: 50%;
+    // border: 1px solid;
+    text-align: center;
+    line-height: 50px;
+    margin: 0 auto;
+
+    &:first-of-type {
+      margin-left: -5%;
+    }
+
+    .on {
+      width: 100%;
+      background-color: $color-highlight;
+      color: white;
+    }
+  }
+}

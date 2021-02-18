@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Store } from 'Main/components/index';
+import { Store, Plus } from 'Main/components/index';
+import { Modal } from 'components/index';
 
 const cx = classNames.bind(styles);
 
 const Book = ({ date }) => {
   const [books, setBook] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // 이부분에서 date로 Axios 값 불러오기
@@ -63,15 +65,30 @@ const Book = ({ date }) => {
     ]);
   }, []);
 
+  const modalOpen = () => {
+    return setIsModalOpen(true);
+  };
+
+  const modalClose = () => {
+    return setIsModalOpen(false);
+  };
+
   return (
     <div className={cx('book__wrap')}>
       <div className={cx('book__title')}>장부</div>
-      {books.length === 0 ? (
-        // TODO: 이부분에 데이터 없으면 생성하는 버튼 만들기
-        <div> 데이터가 없습니다.</div>
-      ) : (
-        books.map((book, i) => <Store book={book} key={i} />)
-      )}
+      {books.length !== 0 &&
+        books.map((book, i) => (
+          <Store
+            className={cx('book__container')}
+            book={book}
+            key={i}
+            onClick={modalOpen}
+          />
+        ))}
+      <Plus className={cx('book__container')} onClick={modalOpen} />
+      <Modal isOpen={isModalOpen} isClose={modalClose}>
+        <div>수정</div>
+      </Modal>
     </div>
   );
 };

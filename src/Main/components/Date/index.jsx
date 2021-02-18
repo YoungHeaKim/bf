@@ -12,7 +12,7 @@ const Date = ({ date, prevDate, nextDate }) => {
 
   return (
     <div className={cx('date__wrap')}>
-      <button className={cx('date__btn')} onClick={prevDate}>
+      <button className={cx('date__btn')} onClick={prevDate} type="button">
         &lt;
       </button>
       <div className={cx('date__container')}>
@@ -22,7 +22,7 @@ const Date = ({ date, prevDate, nextDate }) => {
           {month}.{day}
         </span>
       </div>
-      <button className={cx('date__btn')} onClick={nextDate}>
+      <button className={cx('date__btn')} onClick={nextDate} type="button">
         &gt;
       </button>
     </div>
