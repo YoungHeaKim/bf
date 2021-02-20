@@ -6,11 +6,13 @@ import classNames from 'classnames/bind';
 import { Header, Nav } from 'Main/components/index';
 const cx = classNames.bind(styles);
 
-const App = () => {
+const App = ({ location }) => {
+  const pathName = location.pathname;
+
   return (
     <div className={cx('app')}>
       <Header />
-      <Nav />
+      <Nav pathName={pathName} />
       <Switch>
         <Route path="/" component={Main} />
       </Switch>

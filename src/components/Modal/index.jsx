@@ -5,18 +5,18 @@ import styles from './stylesheet.scss';
 
 const cx = classNames.bind(styles);
 
-const Modal = ({ className, children, isOpen, isClose }) => {
+const Modal = ({ isClose, data }) => {
   return (
-    isOpen && (
-      <div className={cx('modal')}>
-        <div className={cx('modal__wrap')}>
-          <span className={cx('close')} onClick={isClose}>
-            &times;
-          </span>
-          {children}
+    <div className={cx('modal')}>
+      <div className={cx('modal__wrap')}>
+        <span className={cx('close')} onClick={isClose}>
+          &times;
+        </span>
+        <div>
+          <h3>{data ? '장부 수정' : '장부 등록'}</h3>
         </div>
       </div>
-    )
+    </div>
   );
 };
 

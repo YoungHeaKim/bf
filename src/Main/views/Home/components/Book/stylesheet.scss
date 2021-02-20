@@ -1,0 +1,39 @@
+@import 'common/stylesheet/index.scss';
+
+.book__wrap {
+  width: 90%;
+  height: 100vh;
+  margin: 0 auto;
+
+  .book__title {
+    width: 100%;
+    line-height: 50px;
+    border-top: 1px solid rgb(238, 239, 241);
+    border-bottom: 1px solid rgb(238, 239, 241);
+    background-color: $color-secondary;
+    font-size: $font_size-rem;
+    padding-left: 20px;
+  }
+
+  .book__nickname {
+    width: 20%;
+    font-size: $font_size-rem;
+    line-height: 40px;
+  }
+
+  .book__list__wrap {
+    width: 60%;
+
+    .book__item {
+      width: 100%;
+      display: flex;
+      border-bottom: 1px solid $color-secondary;
+      line-height: 40px;
+    }
+  }
+
+  .book__total {
+    width: 20%;
+    line-height: 40px;
+  }
+}

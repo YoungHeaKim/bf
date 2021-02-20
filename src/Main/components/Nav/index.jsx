@@ -5,26 +5,16 @@ import styles from './stylesheet.scss';
 
 const cx = classNames.bind(styles);
 
-const Nav = () => {
-  const [active, setActive] = useState(true);
-
+const Nav = ({ pathName }) => {
   return (
     <ul className={cx('nav__wrap')}>
       <li className={cx('nav__list')}>
-        <Link
-          className={active && cx('on')}
-          onClick={() => setActive(true)}
-          to={'/'}
-        >
+        <Link className={pathName === '/' && cx('on')} to={'/'}>
           장부
         </Link>
       </li>
       <li className={cx('nav__list')}>
-        <Link
-          className={!active && cx('on')}
-          onClick={() => setActive(false)}
-          to={'/store'}
-        >
+        <Link className={pathName === '/store' && cx('on')} to={'/store'}>
           거래처 리스트
         </Link>
       </li>
