@@ -3,5 +3,13 @@
 .store__list {
   width: 25%;
   font-size: $font_size-rem;
-  line-height: 50px;
+}
+
+.store__title__wrap {
+  background: $color-secondary;
+
+  .store__title {
+    width: 25%;
+    font-size: $font_size-rem;
+  }
 }

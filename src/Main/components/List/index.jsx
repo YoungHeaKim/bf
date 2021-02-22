@@ -6,9 +6,9 @@ import PlusSvg from 'images/plus.svg';
 
 const cx = classNames.bind(styles);
 
-const List = ({ children }) => {
+const List = ({ children, className }) => {
   return (
-    <button className={cx('list__wrap')} type="button">
+    <button className={cx('list__wrap', className)} type="button">
       {children ? (
         children
       ) : (

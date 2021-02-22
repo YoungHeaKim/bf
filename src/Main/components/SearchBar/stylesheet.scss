@@ -1,0 +1,8 @@
+@import 'common/stylesheet/index.scss';
+
+.search__box {
+  padding: 10px;
+  border: 1px solid $color-secondary;
+  border-radius: 15%;
+  display: flex;
+}

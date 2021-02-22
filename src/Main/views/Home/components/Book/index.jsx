@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List } from 'Main/components';
+import { List, SearchBar } from 'Main/components';
 import { StoreItem } from '../index';
 
 const cx = classNames.bind(styles);
 
 const Book = ({ date }) => {
   const [books, setBook] = useState([]);
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     // 이부분에서 date로 Axios 값 불러오기
     setBook([
@@ -189,8 +191,15 @@ const Book = ({ date }) => {
     ]);
   }, []);
 
+  const searchFunc = e => {
+    setSearch(e.target.value);
+    // TODO: Axios로 검색 결과 books 업데이트 시켜주기
+  };
+
   return (
     <div className={cx('book__wrap')}>
+      <SearchBar searchFunc={searchFunc} />
+      {/* TODO: filtering 부분 추가해주어야함 */}
       <div className={cx('book__title')}>장부</div>
       {books.length !== 0 &&
         books.map((book, i) => (
