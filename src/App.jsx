@@ -7,7 +7,7 @@ import { Header, Nav } from 'Main/components/index';
 const cx = classNames.bind(styles);
 
 const App = ({ location }) => {
-  const pathName = location.pathname;
+  const pathName = location.pathname.split('/')[1];
 
   return (
     <div className={cx('app')}>

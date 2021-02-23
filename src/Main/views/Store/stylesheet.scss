@@ -1,15 +1,42 @@
 @import 'common/stylesheet/index.scss';
 
+.search__wrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .store__list {
   width: 25%;
+  margin: auto;
   font-size: $font_size-rem;
 }
 
-.store__title__wrap {
+.store__table {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 20px;
+  box-shadow: 8px 5px 5px $color-box;
+  line-height: $line_height-rem;
+  border: 1px solid $color-box;
+
+  .store__tr {
+    background: $color-secondary;
+    font-size: $font_size-rem;
+  }
+}
+
+.store__detail__title {
+  width: 100%;
+  margin: 20px auto;
+  line-height: $line_height-rem;
+  text-align: center;
+  border: 1px solid $color-box;
+  box-shadow: 8px 5px 5px $color-box;
   background: $color-secondary;
 
-  .store__title {
-    width: 25%;
+  .detail__title {
     font-size: $font_size-rem;
+    line-height: $line_height-rem;
   }
 }
