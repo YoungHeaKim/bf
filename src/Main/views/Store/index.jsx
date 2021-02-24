@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 const Store = () => {
   const [store, setStore] = useState('');
-  const [acoounts, setAcoounts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const year = moment().format('YYYY');
   const month = moment().format('MM');
 
@@ -24,40 +24,76 @@ const Store = () => {
       address: '서울시 서초구 방배로11길 35',
     });
 
-    setAcoounts([{}]);
+    setOrders([
+      {
+        createdAt: '2021.01.01',
+        items: [
+          { id: '1', name: '고추', amount: 5, price: 20000 },
+          { id: '2', name: '고추', amount: 5, price: 20000 },
+          { id: '3', name: '고추', amount: 5, price: 20000 },
+        ],
+        totalPrice: 60000,
+      },
+      {
+        createdAt: '2021.01.02',
+        items: [
+          { id: '4', name: '참기름', amount: 5, price: 20000 },
+          { id: '5', name: '깨', amount: 5, price: 20000 },
+        ],
+        totalPrice: 40000,
+      },
+      {
+        createdAt: '2021.01.03',
+        items: [
+          { id: '4', name: '참기름', amount: 5, price: 20000 },
+          { id: '5', name: '깨', amount: 5, price: 20000 },
+        ],
+        totalPrice: 40000,
+      },
+    ]);
   }, []);
 
   return (
     <Fragment>
-      <table className={cx('store__table')}>
-        <thead>
-          <tr className={cx('store__tr')}>
-            <th>닉네임</th>
-            <th>상호</th>
-            <th>사업자 번호</th>
-            <th>대표자</th>
-            <th>주소</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>{store.nickName}</th>
-            <th>{store.name}</th>
-            <th>{store.bizNum}</th>
-            <th>{store.owner}</th>
-            <th>{store.address}</th>
-          </tr>
-        </tbody>
-      </table>
+      <div className={cx('store__table')}>
+        <div className={cx('store__tr', 'store__header')}>
+          <div className={cx('store__td')}>닉네임</div>
+          <div className={cx('store__td')}>상호</div>
+          <div className={cx('store__td')}>사업자 번호</div>
+          <div className={cx('store__td')}>대표자</div>
+          <div className={cx('store__td')}>주소</div>
+        </div>
+        <List className={cx('store__tr')}>
+          <div className={cx('store__td')}>{store.nickName}</div>
+          <div className={cx('store__td')}>{store.name}</div>
+          <div className={cx('store__td')}>{store.bizNum}</div>
+          <div className={cx('store__td')}>{store.owner}</div>
+          <div className={cx('store__td')}>{store.address}</div>
+        </List>
+      </div>
       <div className={cx('store__detail__title')}>
         <div className={cx('detail__title')}>
           {year}년 {/* TODO: 이부분 분기 나누는 부분 수정해야함 */}
         </div>
         <div className={cx('detail__title')}>{store.nickName} 분기별 장부</div>
       </div>
-      {/* TODO: 날짜/ item.name / item.amount / item.price / item.totalPrice 순으로 list 뿌려줘야함 */}
-      {acoounts.length !== 0 &&
-        acoounts.map((account, i) => <List key={i}></List>)}
+      {orders.length !== 0 &&
+        orders.map((order, i) => (
+          <List key={i}>
+            <div className={cx('store__order')}>{order.createdAt}</div>
+            <div className={cx('store__order__list')}>
+              {order.items.length !== 0 &&
+                order.items.map((item, index) => (
+                  <div key={index} className={cx('store__order__item')}>
+                    <div className={cx('order__item')}>{item.name}</div>
+                    <div className={cx('order__item')}>{item.amount}</div>
+                    <div className={cx('order__item')}>{item.price}</div>
+                  </div>
+                ))}
+            </div>
+            <div className={cx('store__order')}>{order.totalPrice}</div>
+          </List>
+        ))}
     </Fragment>
   );
 };

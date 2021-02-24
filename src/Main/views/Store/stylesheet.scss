@@ -17,12 +17,27 @@
   margin-top: 20px;
   padding: 0 20px;
   box-shadow: 8px 5px 5px $color-box;
-  line-height: $line_height-rem;
   border: 1px solid $color-box;
 
-  .store__tr {
+  .store__header {
     background: $color-secondary;
+  }
+
+  .store__tr {
+    display: flex;
     font-size: $font_size-rem;
+    line-height: $line_height-rem;
+    padding: 0;
+
+    .store__td {
+      width: 17%;
+      text-align: center;
+      margin: auto;
+
+      &:last-of-type {
+        width: 32%;
+      }
+    }
   }
 }
 
@@ -38,5 +53,31 @@
   .detail__title {
     font-size: $font_size-rem;
     line-height: $line_height-rem;
+  }
+}
+
+.store__order {
+  width: 20%;
+
+  &:last-of-type {
+    margin: auto;
+  }
+}
+
+.store__order__list {
+  width: 60%;
+
+  .store__order__item {
+    display: flex;
+    border-bottom: 1px solid $color-secondary;
+    line-height: 40px;
+
+    .order__item {
+      width: 30%;
+
+      &:last-of-type {
+        width: 40%;
+      }
+    }
   }
 }
