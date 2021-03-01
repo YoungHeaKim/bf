@@ -62,7 +62,6 @@
 
   .store__prev__btn,
   .store__next__btn {
-    // width: 25%;
     font-size: 2.5rem;
     line-height: 2.5rem;
     position: absolute;
@@ -71,37 +70,11 @@
   }
 
   .store__prev__btn {
-    left: 0;
+    left: 10%;
   }
 
   .store__next__btn {
-    right: 0;
+    right: 10%;
     margin-top: 3px;
-  }
-}
-
-.store__order {
-  width: 20%;
-
-  &:last-of-type {
-    margin: auto;
-  }
-}
-
-.store__order__list {
-  width: 60%;
-
-  .store__order__item {
-    display: flex;
-    border-bottom: 1px solid $color-secondary;
-    line-height: 40px;
-
-    .order__item {
-      width: 30%;
-
-      &:last-of-type {
-        width: 40%;
-      }
-    }
   }
 }

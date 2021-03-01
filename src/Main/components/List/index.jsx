@@ -6,13 +6,17 @@ import PlusSvg from 'images/plus.svg';
 
 const cx = classNames.bind(styles);
 
-const List = ({ children, className, to }) => {
+const List = ({ children, className, to, onClick }) => {
   return to ? (
     <Link className={cx('list__wrap', className)} to={to}>
       {children}
     </Link>
   ) : (
-    <button className={cx('list__wrap', className)} type="button">
+    <button
+      className={cx('list__wrap', className)}
+      type="button"
+      onClick={onClick}
+    >
       {children ? (
         children
       ) : (

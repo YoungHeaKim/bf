@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { List } from 'Main/components';
+import { Quarter } from './components';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
@@ -107,6 +108,10 @@ const Store = () => {
         >
           &lt;
         </button>
+        <div className={cx('detail__title')}>
+          {year}년 {quarter}
+        </div>
+        <div className={cx('detail__title')}>{store.nickName} 분기별 장부</div>
         <button
           className={cx('store__next__btn')}
           onClick={nextQuarter}
@@ -114,28 +119,9 @@ const Store = () => {
         >
           &gt;
         </button>
-        <div className={cx('detail__title')}>
-          {year}년 {quarter}
-        </div>
-        <div className={cx('detail__title')}>{store.nickName} 분기별 장부</div>
       </div>
       {orders.length !== 0 &&
-        orders.map((order, i) => (
-          <List key={i}>
-            <div className={cx('store__order')}>{order.createdAt}</div>
-            <div className={cx('store__order__list')}>
-              {order.items.length !== 0 &&
-                order.items.map((item, index) => (
-                  <div key={index} className={cx('store__order__item')}>
-                    <div className={cx('order__item')}>{item.name}</div>
-                    <div className={cx('order__item')}>{item.amount}</div>
-                    <div className={cx('order__item')}>{item.price}</div>
-                  </div>
-                ))}
-            </div>
-            <div className={cx('store__order')}>{order.totalPrice}</div>
-          </List>
-        ))}
+        orders.map((order, i) => <Quarter key={i} order={order} />)}
     </Fragment>
   );
 };
