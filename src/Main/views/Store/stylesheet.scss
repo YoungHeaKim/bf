@@ -21,6 +21,7 @@
 
   .store__header {
     background: $color-secondary;
+    // margin-top: 20px;
   }
 
   .store__tr {
@@ -42,6 +43,11 @@
         width: 32%;
       }
     }
+  }
+  .store__td__more {
+    width: 33.333%;
+    text-align: center;
+    margin: auto;
   }
 }
 

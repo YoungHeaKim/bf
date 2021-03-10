@@ -23,6 +23,7 @@ const StoreList = () => {
   }, []);
 
   const searchFunc = e => {
+    e.preventDefault();
     setSearch(e.target.value);
     // TODO: Axios로 검색 결과 books 업데이트 시켜주기
   };

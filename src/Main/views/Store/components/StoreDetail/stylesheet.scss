@@ -2,22 +2,9 @@
 
 .store__order {
   width: 20%;
-}
 
-.store__order__total {
-  margin: auto;
-}
-
-.store__add__btn {
-  button {
-    width: 100%;
-    text-align: center;
-
-    img {
-      margin: auto;
-      width: 30px;
-      height: 30px;
-    }
+  &:last-of-type {
+    margin: auto;
   }
 }
 
@@ -33,6 +20,7 @@
 
     .order__item {
       width: 30%;
+      line-height: 40px;
       text-align: center;
 
       &:last-of-type {

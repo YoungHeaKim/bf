@@ -2,8 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List } from 'Main/components';
-import { Quarter } from './components';
+import { Quarter, StoreDetail } from './components';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
@@ -13,6 +12,7 @@ const Store = () => {
   const [orders, setOrders] = useState([]);
   const [year, setYear] = useState('');
   const [quarter, setQuarter] = useState('');
+  const [detailOn, setDetailOn] = useState(false);
 
   useEffect(() => {
     // 가게 정보 api로 가져오기(store)
@@ -24,10 +24,13 @@ const Store = () => {
       bizNum: '123-45-6788',
       phoneNumber: '010-1234-5678',
       address: '서울시 서초구 방배로11길 35',
+      category: '음식점업',
+      tag: '중식',
     });
 
     setOrders([
       {
+        id: '12',
         createdAt: '2021.01.01',
         items: [
           { id: '1', name: '고추', amount: 5, price: 20000 },
@@ -37,6 +40,7 @@ const Store = () => {
         totalPrice: 60000,
       },
       {
+        id: '13',
         createdAt: '2021.01.02',
         items: [
           { id: '4', name: '참기름', amount: 5, price: 20000 },
@@ -45,6 +49,7 @@ const Store = () => {
         totalPrice: 40000,
       },
       {
+        id: '14',
         createdAt: '2021.01.03',
         items: [
           { id: '4', name: '참기름', amount: 5, price: 20000 },
@@ -84,22 +89,20 @@ const Store = () => {
     }
   };
 
+  const detailBtn = () => {
+    setDetailOn(!detailOn);
+  };
+
+  const updateOrders = list => {
+    const orderList = [...orders];
+    const order = orderList.find(order => order.id === list.id);
+    order.items = list.items;
+    setOrders(orderList);
+  };
+
   return (
     <Fragment>
-      <div className={cx('store__table')}>
-        <div className={cx('store__tr', 'store__header')}>
-          <div className={cx('store__td')}>닉네임</div>
-          <div className={cx('store__td')}>상호</div>
-          <div className={cx('store__td')}>전화 번호</div>
-          <div className={cx('store__td')}>주소</div>
-        </div>
-        <List className={cx('store__tr')}>
-          <div className={cx('store__td')}>{store.nickName}</div>
-          <div className={cx('store__td')}>{store.name}</div>
-          <div className={cx('store__td')}>{store.phoneNumber}</div>
-          <div className={cx('store__td')}>{store.address}</div>
-        </List>
-      </div>
+      <StoreDetail store={store} detailBtn={detailBtn} detailOn={detailOn} />
       <div className={cx('store__detail__title')}>
         <button
           className={cx('store__prev__btn')}
@@ -121,7 +124,9 @@ const Store = () => {
         </button>
       </div>
       {orders.length !== 0 &&
-        orders.map((order, i) => <Quarter key={i} order={order} />)}
+        orders.map((order, i) => (
+          <Quarter key={i} order={order} updateOrders={updateOrders} />
+        ))}
     </Fragment>
   );
 };

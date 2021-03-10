@@ -11,7 +11,7 @@ const List = ({ children, className, to, onClick }) => {
     <Link className={cx('list__wrap', className)} to={to}>
       {children}
     </Link>
-  ) : (
+  ) : onClick ? (
     <button
       className={cx('list__wrap', className)}
       type="button"
@@ -23,6 +23,8 @@ const List = ({ children, className, to, onClick }) => {
         <img className={cx('list__add')} src={PlusSvg} alt="리스트 추가" />
       )}
     </button>
+  ) : (
+    <div className={cx('list__wrap', className)}>{children}</div>
   );
 };
 

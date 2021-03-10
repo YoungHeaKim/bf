@@ -8,6 +8,7 @@
   display: flex;
   text-align: center;
   line-height: $line_height-rem;
+  position: relative;
 
   .list__add {
     width: 10%;
