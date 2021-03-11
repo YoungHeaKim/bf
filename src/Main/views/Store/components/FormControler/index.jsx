@@ -27,24 +27,11 @@ const FormControler = ({
 
   // input 입력시 input에 데이터 바꿔주는 부분
   const changeInput = (e, type) => {
-    if (type === 'name')
-      setPutInput({
-        name: e.target.value,
-        amount: putInput.amount,
-        price: putInput.price,
-      });
-    else if (type === 'amount')
-      setPutInput({
-        name: putInput.name,
-        amount: e.target.value,
-        price: putInput.price,
-      });
-    else if (type === 'price')
-      setPutInput({
-        name: putInput.name,
-        amount: putInput.amount,
-        price: e.target.value,
-      });
+    e.preventDefault();
+    setPutInput({
+      ...putInput,
+      [type]: e.target.value,
+    });
   };
 
   // form 데이터 처리 해주는 부분
@@ -131,20 +118,19 @@ const FormControler = ({
       <input
         className={cx('order__input')}
         type="number"
+        min="0"
         placeholder={'수량'}
         onChange={e => changeInput(e, 'amount')}
       />
       <input
         className={cx('order__input')}
         type="number"
+        min="0"
         placeholder={'가격'}
         onChange={e => changeInput(e, 'price')}
       />
       <div className={cx('order__btn')}>
         <input type="submit" value="추가" />
-        {/* <button type="button" onClick={() => formBtn('add')}>
-          추가
-        </button> */}
         <button type="button" onClick={() => formBtn('cancel')}>
           취소
         </button>

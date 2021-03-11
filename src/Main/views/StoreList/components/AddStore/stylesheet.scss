@@ -1,0 +1,24 @@
+@import 'common/stylesheet/index.scss';
+
+.modal__title {
+  text-align: center;
+}
+
+.modal__textarea {
+  display: flex;
+  margin-bottom: 10px;
+
+  .modal__textfield {
+    width: 45%;
+
+    &:first-of-type {
+      margin-left: 2.5%;
+      margin-right: 5%;
+    }
+  }
+
+  .modal__address {
+    width: 100%;
+    margin-left: 5% !important;
+  }
+}
