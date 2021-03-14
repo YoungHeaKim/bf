@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Modal } from 'Main/components';
+import { Modal, Address } from 'Main/components';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -18,15 +18,25 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
     bizNum: '',
     owner: '',
     address: '',
+    detailAddress: '',
     category: '',
     tag: '',
   });
+  const [isPostOpen, setIsPostOpen] = useState(false);
 
   const changeText = (e, target) => {
     setStore({
       ...store,
       [target]: e.target.value,
     });
+  };
+
+  const postAddress = data => {
+    setStore({
+      ...store,
+      address: data,
+    });
+    setIsPostOpen(false);
   };
 
   return (
@@ -102,17 +112,31 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
           />
         </div>
         <div className={cx('modal__textarea')}>
-          <TextField
-            className={cx('modal__textfield', 'modal__address')}
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            label="주소"
-            type="address"
-            value={store.address}
-            onChange={e => changeText(e, 'address')}
-          />
+          {isPostOpen ? (
+            <Address postAddress={postAddress} />
+          ) : (
+            <Button
+              className={cx('modal__textfield', 'modal__address')}
+              onClick={() => setIsPostOpen(true)}
+            >
+              {store.address === '' ? '주소추가' : store.address}
+            </Button>
+          )}
         </div>
+        {store.address !== '' && (
+          <div className={cx('modal__textarea')}>
+            <TextField
+              className={cx('modal__textfield', 'modal__address__detail')}
+              autoFocus
+              margin="dense"
+              variant="outlined"
+              label="상세 주소"
+              type="string"
+              value={store.detailAddress}
+              onChange={e => changeText(e, 'detailAddress')}
+            />
+          </div>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={() => addFunc(store)} color="primary">

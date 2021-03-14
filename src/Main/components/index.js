@@ -3,3 +3,4 @@ export { default as Nav } from './Nav';
 export { default as List } from './List';
 export { default as SearchBar } from './SearchBar';
 export { default as Modal } from './Modal';
+export { default as Address } from './Address';
