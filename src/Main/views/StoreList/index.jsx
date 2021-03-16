@@ -39,8 +39,6 @@ const StoreList = () => {
   };
 
   const addModal = store => {
-    console.log(store);
-    store._id = '2';
     stores.push(store);
     setStores(stores);
     setOpen(false);

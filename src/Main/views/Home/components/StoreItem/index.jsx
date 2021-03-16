@@ -12,7 +12,7 @@ const StoreItem = ({ items, className }) => {
     items.map((item, index) => (
       <div key={index} className={cx(className)}>
         <div className={cx('item__name')}>{item.name}</div>
-        <div className={cx('item__quantity')}>{item.quantity}</div>
+        <div className={cx('item__quantity')}>{item.amount}</div>
         <div className={cx('item__price')}>{item.price}원</div>
       </div>
     ))

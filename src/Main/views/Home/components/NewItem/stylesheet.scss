@@ -1,0 +1,21 @@
+@import 'common/stylesheet/index.scss';
+
+.modal__title {
+  text-align: center;
+}
+
+.modal__textarea {
+  display: flex;
+  margin-bottom: 10px;
+
+  .modal__order__name {
+    width: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  .modal__order__item {
+    width: 33%;
+    margin: auto;
+  }
+}

@@ -39,6 +39,20 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
     setIsPostOpen(false);
   };
 
+  const openAddress = () => {
+    setIsPostOpen(true);
+    setStore({
+      ...store,
+      detailAddress: '',
+    });
+  };
+
+  const addStore = () => {
+    // TODO: item 등록 부분 완성해야함
+    store._id = '2';
+    addFunc(store)
+  }
+
   return (
     <Modal open={open} closeFunc={closeFunc}>
       <DialogTitle className={cx('modal__title')}>
@@ -117,7 +131,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
           ) : (
             <Button
               className={cx('modal__textfield', 'modal__address')}
-              onClick={() => setIsPostOpen(true)}
+              onClick={openAddress}
             >
               {store.address === '' ? '주소추가' : store.address}
             </Button>
@@ -139,7 +153,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => addFunc(store)} color="primary">
+        <Button onClick={addStore} color="primary">
           등록
         </Button>
         <Button onClick={closeFunc} color="primary">
