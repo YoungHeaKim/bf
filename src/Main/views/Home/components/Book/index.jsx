@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { List } from 'Main/components';
 import { StoreItem,PutItem } from '../index';
+import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
@@ -19,138 +20,7 @@ const Book = () => {
         id: '1',
         nickName: '이름1',
         date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [
-          {
-            price: 8000,
-            name: '고추',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '참기름',
-            amount: 5,
-          },
-          {
-            price: 8000,
-            name: '깨',
-            amount: 5,
-          },
-        ],
-      },
-      {
-        id: '1',
-        nickName: '이름1',
-        date: 'Tue Mar 16 2021 20:53:21',
+        totalPrice: 24000,
         items: [
           {
             price: 8000,
@@ -173,6 +43,7 @@ const Book = () => {
         id: '2',
         nickName: '이름2',
         date: 'Tue Mar 16 2021 20:53:21',
+        totalPrice: 8000,
         items: [
           {
             price: 8000,
@@ -183,14 +54,9 @@ const Book = () => {
       },
       {
         id: '3',
-        nickName: '이름3',
-        date: 'Tue Mar 16 2021 20:53:21',
-        items: [],
-      },
-      {
-        id: '4',
         nickName: '이름4',
         date: 'Tue Mar 16 2021 20:53:21',
+        totalPrice: 8000,
         items: [
           {
             price: 8000,
@@ -211,9 +77,22 @@ const Book = () => {
     setOpen(false);
   }
 
+  // TODO: 수정 삭제 부분 완료
   const addFunc = (order) => {
-    console.log(order);
-    
+    if(order.items.length === 0) {
+      // TODO: Order delete 요청 
+      setOrders(orders.filter(state => state.id !== order.id));
+    } else if(order.id === '') {
+      // TODO: Order add 요청 
+      order.id = String(orders.length + 1);
+      order.date = moment();
+      let orderCopy = [...orders];
+      orderCopy.push(order);
+      setOrders(orderCopy);
+    } else {
+      // TODO: Order patch 요청 
+      setOrders(orders.map(state => state.id === order.id ?  order: state));
+    }
     setOpen(false);
   }
 
@@ -227,7 +106,7 @@ const Book = () => {
             <div className={cx('book__list__wrap')}>
               <StoreItem className={cx('book__item')} items={order.items} />
             </div>
-            <div className={cx('book__total')}>total price</div>
+            <div className={cx('book__total')}>{order.totalPrice}원</div>
           </List>
         ))}
       <List onClick={() => openModal()}/>

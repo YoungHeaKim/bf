@@ -3,11 +3,7 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { Modal, Address } from 'Main/components';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import {DialogActions,DialogContent,DialogTitle,Button,TextField} from '@material-ui/core';
 
 const cx = classNames.bind(styles);
 

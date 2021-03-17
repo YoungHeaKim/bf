@@ -3,34 +3,24 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { Modal } from 'Main/components';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import {DialogActions,DialogContent,DialogTitle,Button,TextField} from '@material-ui/core';
 import NewItem from '../NewItem';
 
 const cx = classNames.bind(styles);
 
 const PutItem = ({ open, closeFunc, addFunc, book }) => {
   const [order, setOrder] = useState({
+    id:'',
+    date: '',
     nickName: '',
     items: [],
   });
-  const [add, setAdd] = useState(false);
 
   useEffect(() => {
-    if(book) {
-      setOrder({
-        nickName: book.nickName,
-        items: book.items,
-      })
-    }
+    if(book) setOrder({...book})
   }, []);
 
-  const changeText = (e, target) => {
-    // TODO: items안에 있는 내용 수정하는 부분 오류
-    console.log(target)
+  const changeText = (e, target, index) => {
     if(target==='nickName' || target === 'date'){   
       setOrder({
         ...order,
@@ -39,14 +29,20 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
     } else {
       setOrder({
         ...order,
-        items: [...order.items, target]
+        items: order.items.map(
+            (item, i) => 
+              i=== index ? {...item, [target]: e.target.value}: item
+          )
       })
     }
   };
 
-  const changeOrder = (i ) => {
-    // TODO: item 등록 부분 완성해야함
-    addFunc(order)
+  const changeOrder = () => {
+    if(order.items.find(item => item.name === '') || order.nickName ==='') {
+      // TODO: 이 부분 필수 입력값 필요
+      console.log('오류')
+    }
+    else addFunc(order)
   }
 
   const addItem = () => {
@@ -54,7 +50,13 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
       ...order,
       items: [...order.items, {name:'', amount: 0, price: 0}]
     })
-    setAdd(true)
+  }
+
+  const removeItem = index => {
+    setOrder({
+        ...order,
+        items: order.items.filter((item, i) => i !== index)
+      })
   }
 
   return (
@@ -79,7 +81,7 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
         </div>
         {
           order.items.length > 0 && order.items.map((item,i) =>
-            <NewItem item={item} key={i} index={i} changeText={changeText}/>
+            <NewItem item={item} key={i} index={i} changeText={changeText} removeItem={removeItem}/>
         )}
       <div className={cx('modal__textarea')}>
         <Button onClick={addItem}>물건 추가 등록</Button>
