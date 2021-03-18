@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
@@ -21,9 +21,8 @@ const Address = ({ postAddress }) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    let zonecode = data.zonecode;
-    let address = '(' + zonecode + ')' + fullAddress;
-    postAddress(address);
+    
+    postAddress(fullAddress);
   };
 
   return (

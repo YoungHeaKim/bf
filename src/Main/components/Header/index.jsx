@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 

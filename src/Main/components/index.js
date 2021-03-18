@@ -4,3 +4,5 @@ export { default as List } from './List';
 export { default as SearchBar } from './SearchBar';
 export { default as Modal } from './Modal';
 export { default as Address } from './Address';
+export { default as NewItem } from './NewItem';
+export { default as PutItem } from './PutItem';

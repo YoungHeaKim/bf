@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List } from 'Main/components';
-import { StoreItem,PutItem } from '../index';
+import { List,PutItem } from 'Main/components';
+import { StoreItem } from '../index';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);

@@ -1,11 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import classNames from 'classnames/bind';
-import styles from './stylesheet.scss';
 import { Book, Date } from './components/index';
 import moment from 'moment';
-
-const cx = classNames.bind(styles);
 
 const Main = () => {
   const today = moment().format('YYYY.MM.DD');

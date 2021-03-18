@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { Modal } from 'Main/components';
 import {DialogActions,DialogContent,DialogTitle,Button,TextField} from '@material-ui/core';
-import NewItem from '../NewItem';
+import {NewItem} from 'Main/components';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +12,7 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
   const [order, setOrder] = useState({
     id:'',
     date: '',
-    nickName: '',
+    nickName: '', // TODO: 이부분 List로 보여주어야함
     items: [],
   });
 

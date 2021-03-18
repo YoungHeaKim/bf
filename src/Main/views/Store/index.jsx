@@ -31,6 +31,7 @@ const Store = () => {
     setOrders([
       {
         id: '12',
+        nickName: '동천',
         createdAt: '2021.01.01',
         items: [
           { id: '1', name: '고추', amount: 5, price: 20000 },
@@ -41,6 +42,7 @@ const Store = () => {
       },
       {
         id: '13',
+        nickName: '동천',
         createdAt: '2021.01.02',
         items: [
           { id: '4', name: '참기름', amount: 5, price: 20000 },
@@ -50,6 +52,7 @@ const Store = () => {
       },
       {
         id: '14',
+        nickName: '동천',
         createdAt: '2021.01.03',
         items: [
           { id: '4', name: '참기름', amount: 5, price: 20000 },

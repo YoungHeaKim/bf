@@ -4,7 +4,8 @@
   text-align: center;
 }
 
-.modal__textarea {
+.modal__store__textarea {
+  width: 100%;
   display: flex;
   margin-bottom: 10px;
 
@@ -17,8 +18,14 @@
     }
   }
 
+  .modal__store__three{
+    width: 30%;
+    margin-left: 2.5%;
+  }
+
   .modal__address {
     width: 100%;
+    height: auto;
     margin-left: 2.5%;
   }
 

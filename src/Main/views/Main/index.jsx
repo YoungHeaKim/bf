@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { Home, StoreList, Store } from '../index';
