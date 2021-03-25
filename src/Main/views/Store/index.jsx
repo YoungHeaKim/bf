@@ -97,10 +97,12 @@ const Store = () => {
   };
 
   const updateOrders = list => {
-    const orderList = [...orders];
-    const order = orderList.find(order => order.id === list.id);
-    order.items = list.items;
-    setOrders(orderList);
+    if (list.items.length === 0) {
+      // TODO: Order delete 요청
+      setOrders(orders.filter(state => state.id !== list.id));
+    } else {
+      setOrders(orders.map(state => (state.id === list.id ? list : state)));
+    }
   };
 
   return (

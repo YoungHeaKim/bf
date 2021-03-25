@@ -17,9 +17,10 @@ const Quarter = ({ order, updateOrders }) => {
     setOpenModal(false);
   };
 
-  const addFunc = (changeOrder) => {
+  const addFunc = changeOrder => {
+    updateOrders(changeOrder);
     setOpenModal(false);
-  }
+  };
 
   return (
     <Fragment>
@@ -27,29 +28,26 @@ const Quarter = ({ order, updateOrders }) => {
         <div className={cx('store__order')}>{order.createdAt}</div>
         <div className={cx('store__order__list')}>
           {order.items.length !== 0 &&
-            order.items.map((item, index) =>
-              <div
-                key={index}
-                className={cx('store__order__item')}
-              >
+            order.items.map((item, index) => (
+              <div key={index} className={cx('store__order__item')}>
                 <div className={cx('order__item')}>{item.name}</div>
                 <div className={cx('order__item')}>{item.amount}</div>
                 <div className={cx('order__item')}>{item.price}</div>
               </div>
-          )}
+            ))}
         </div>
         <div className={cx('store__order', 'store__order__total')}>
           {order.totalPrice}
         </div>
       </List>
-    {openModal && 
-      <PutItem
-        book={order}
-        open={openModal}
-        addFunc={() =>addFunc()}
-        closeFunc={closeFunc}
-      />
-    }
+      {openModal && (
+        <PutItem
+          book={order}
+          open={openModal}
+          addFunc={addFunc}
+          closeFunc={closeFunc}
+        />
+      )}
     </Fragment>
   );
 };

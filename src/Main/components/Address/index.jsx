@@ -21,7 +21,7 @@ const Address = ({ postAddress }) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    
+
     postAddress(fullAddress);
   };
 
