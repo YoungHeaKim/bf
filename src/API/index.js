@@ -50,21 +50,26 @@ const PUT = (URL, headers) =>
   });
 
 const UserApi = {
-  getArtistUserList: GET('/user/artist/list'),
-  get: GET('/user/:user_id'),
-  getArtist: GET('/user/artist/:artist_id'),
-  getList: GET('/user/artist/filter'),
+  get: GET('/users/:user_id'),
 };
 
 const StoreApi = {
-  add: POST('/stores/'),
+  add: POST('/stores'),
+  getList: GET('/stores'),
   get: GET('/stores/:store_id'),
-  update: PUT('/stores/:artist_id'),
+  update: PUT('/stores/:store_id'),
 };
 
 const AuthApi = {
-  createAdminAuth: POST('/auth/signIn'),
-  destroyAuth: DELETE('/auth/signOut'),
+  createAuth: POST('/auth/login'),
+  destroyAuth: DELETE('/auth/logout'),
 };
 
-export { UserApi, StoreApi, AuthApi };
+const OrderApi = {
+  add: POST('/orders'),
+  getList: GET('/orders'),
+  get: GET('/orders/:order_id'),
+  update: PUT('/orders/:order_id'),
+};
+
+export { UserApi, StoreApi, AuthApi, OrderApi };
