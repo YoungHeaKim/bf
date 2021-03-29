@@ -22,7 +22,6 @@ const Main = ({ location, history }) => {
     setUser('user있음');
     return history.push(`/`);
   };
-  console.log(user);
 
   // TODO: user login 안되어있으면 login창으로 redirect해주기
   return (

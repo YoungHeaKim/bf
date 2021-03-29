@@ -14,7 +14,7 @@ const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
       {orders.length !== 0 &&
         orders.map((order, i) => (
           <List key={i} onClick={() => openModal(order)} closeFunc={closeModal}>
-            <div className={cx('book__nickname')}>{order.nickName}</div>
+            <div className={cx('book__nickname')}>{order.store.nickname}</div>
             <div className={cx('book__list__wrap')}>
               <StoreItem className={cx('book__item')} items={order.items} />
             </div>

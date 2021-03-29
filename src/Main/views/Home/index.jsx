@@ -5,16 +5,18 @@ import moment from 'moment';
 import { OrderApi } from 'API';
 
 const Main = () => {
-  const today = moment().format('YYYY.MM.DD');
+  const today = moment().format('YYYY-MM-DD');
+  const nextD = moment().add(1, 'd').format('YYYY-MM-DD');
   const [date, setDate] = useState(today);
+  const [next, setNextDate] = useState(nextD);
   const [orders, setOrder] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectBook, setBook] = useState(undefined);
 
-  useEffect(
-    () => OrderApi.getList({ date: date }).then(data => console.log(data)),
-    []
-  );
+  useEffect(() => {
+    const query = `date>=${date}&date<=${next}`;
+    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
+  }, []);
 
   const openModal = book => {
     setBook(book);
@@ -26,14 +28,21 @@ const Main = () => {
   };
 
   const prevDate = () => {
-    // 이부분에서 axios 사용해서 데이터 가져오기
-    setDate(moment(date).subtract(1, 'd').format('YYYY.MM.DD'));
-    return OrderApi.getList({ date: date }).then(data => console.log(data));
+    const now = moment(date).subtract(1, 'd').format('YYYY-MM-DD');
+    const after = date;
+    setDate(now);
+    setNextDate(after);
+    const query = `date>=${now}&date<=${after}`;
+    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
   };
 
   const nextDate = () => {
-    // 이부분에서 axios 사용해서 데이터 가져오기
-    setDate(moment(date).add(1, 'd').format('YYYY.MM.DD'));
+    const now = next;
+    const after = moment(next).add(1, 'd').format('YYYY-MM-DD');
+    setDate(now);
+    setNextDate(after);
+    const query = `date>=${now}&date<=${after}`;
+    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
   };
 
   // TODO: 수정 삭제 부분 완료

@@ -1,36 +1,40 @@
 @import 'common/stylesheet/index.scss';
 
-.modal__title {
-  text-align: center;
-}
+.modal__wrap {
+  height: 100%;
 
-.modal__store__textarea {
-  width: 100%;
-  display: flex;
-  margin-bottom: 10px;
+  .modal__title {
+    text-align: center;
+  }
 
-  .modal__textfield {
-    width: 45%;
+  .modal__store__textarea {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
 
-    &:first-of-type {
-      margin-left: 2.5%;
-      margin-right: 5%;
+    .modal__textfield {
+      width: 45%;
+
+      &:first-of-type {
+        margin-left: 2.5%;
+        margin-right: 5%;
+      }
     }
-  }
 
-  .modal__store__three{
-    width: 30%;
-    margin-left: 2.5%;
-  }
+    .modal__store__three {
+      width: 30%;
+      margin-left: 2.5%;
+    }
 
-  .modal__address {
-    width: 100%;
-    height: auto;
-    margin-left: 2.5%;
-  }
+    .modal__address {
+      width: 100%;
+      height: auto;
+      margin-left: 2.5%;
+    }
 
-  .modal__address__detail {
-    width: 100%;
-    margin-left: 5% !important;
+    .modal__address__detail {
+      width: 100%;
+      margin-left: 5% !important;
+    }
   }
 }

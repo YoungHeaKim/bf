@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { List, SearchBar } from 'Main/components';
 import { AddStore } from './components';
+import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
 
@@ -13,15 +14,7 @@ const StoreList = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setStores([
-      {
-        _id: '1',
-        nickName: '동천동천동천동천동천동천동천동천동천',
-        name: '동천',
-        owner: '주인이름',
-        bizNum: '123-45-6788',
-      },
-    ]);
+    return StoreApi.getList().then(({ stores }) => setStores(stores));
   }, []);
 
   const searchFunc = e => {
@@ -39,9 +32,13 @@ const StoreList = () => {
   };
 
   const addModal = store => {
-    stores.push(store);
-    setStores(stores);
-    setOpen(false);
+    return StoreApi.add(store)
+      .then(data => stores.push(data))
+      .then(() => {
+        setOpen(false);
+        setStores(stores);
+      })
+      .catch(() => console.log('오류'));
   };
 
   return (
@@ -58,7 +55,7 @@ const StoreList = () => {
       {stores.length !== 0 &&
         stores.map((store, i) => (
           <List to={`/store/${store._id}`} key={i}>
-            <div className={cx('store__list')}>{store.nickName}</div>
+            <div className={cx('store__list')}>{store.nickname}</div>
             <div className={cx('store__list')}>{store.name}</div>
             <div className={cx('store__list')}>{store.bizNum}</div>
             <div className={cx('store__list')}>{store.owner}</div>

@@ -63,7 +63,9 @@ const AuthApi = {
 
 const OrderApi = {
   add: POST('/orders'),
-  getList: GET('/orders'),
+  getList: date => axios.get(`${endpoint}/orders?${date}`),
+  getStoreList: (date, store) =>
+    axios.get(`${endpoint}/orders?${date}&store=${store}`),
   get: GET('/orders/:order_id'),
   update: PUT('/orders/:order_id'),
 };
