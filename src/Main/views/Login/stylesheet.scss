@@ -2,7 +2,7 @@
 
 .login__wrap {
   width: 50%;
-  height: 50%;
+  height: auto;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -28,6 +28,20 @@
       width: 70%;
       border: 1px solid $color-box;
     }
+
+    .login__error__input {
+      margin-left: 5%;
+      width: 70%;
+      border: 1px solid #ff0000 !important;
+      background: rgba(255, 0, 0, 0.1) !important;
+    }
+  }
+
+  .login__error {
+    color: red;
+    @include font($font_size-18, $line_height-21);
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .login__button {

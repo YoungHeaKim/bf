@@ -49,10 +49,6 @@ const PUT = (URL, headers) =>
     return axios.put(mappedURL, body, { params, headers });
   });
 
-const UserApi = {
-  get: GET('/users/:user_id'),
-};
-
 const StoreApi = {
   add: POST('/stores'),
   getList: GET('/stores'),
@@ -72,4 +68,4 @@ const OrderApi = {
   update: PUT('/orders/:order_id'),
 };
 
-export { UserApi, StoreApi, AuthApi, OrderApi };
+export { StoreApi, AuthApi, OrderApi };

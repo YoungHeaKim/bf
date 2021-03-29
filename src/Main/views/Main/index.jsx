@@ -10,27 +10,24 @@ const cx = classNames.bind(styles);
 
 const Main = ({ location, history }) => {
   const pathName = location.pathname.split('/')[1];
-  const [cookies, setCookie] = useCookies(null);
+  const [cookies] = useCookies(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    getCookieFunc();
+    if (!cookies.token) history.push(`/login`);
   }, []);
-
-  const getCookieFunc = () => {
-    let result = cookies.user;
-    setUser(result);
-  };
 
   // TODO: login 완료시 운
   const loginFunc = data => {
-    setUser(data);
-    history.push(`/`);
+    setUser('user있음');
+    return history.push(`/`);
   };
+  console.log(user);
 
+  // TODO: user login 안되어있으면 login창으로 redirect해주기
   return (
     <div className={cx('main__wrap')}>
-      {user && (
+      {(user || cookies.token) && (
         <Fragment>
           <Header />
           <Nav pathName={pathName} />
