@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
@@ -10,6 +10,7 @@ import {
   Button,
   TextField,
 } from '@material-ui/core';
+import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
 
@@ -26,10 +27,33 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
     phoneNumber: '',
     category: '',
     tag: '',
+    description: '',
   });
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
   const [isPostOpen, setIsPostOpen] = useState(false);
+
+  useEffect(() => {
+    const phoneNumber = store.phoneNumber;
+    setStore({
+      ...store,
+      phoneNumber: phoneNumber
+        .replace(/-/g, '')
+        .replace(/(\d{2,3})(\d{4})(\d{4})/, '$1-$2-$3'),
+    });
+  }, [store.phoneNumber]);
+
+  useEffect(() => {
+    const bizNum = store.bizNum;
+    if (bizNum.length === 10) {
+      setStore({
+        ...store,
+        bizNum: bizNum
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3'),
+      });
+    }
+  }, [store.bizNum]);
 
   const changeText = (e, target) => {
     if (target === 'detail') {
@@ -69,24 +93,32 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
       return setFields(['phoneNumber']);
     } else {
-      return addFunc(store);
+      return StoreApi.add(store)
+        .then(store => {
+          if (store) addFunc(store);
+        })
+        .catch(e => {
+          setError('전화번호나 사업자 번호의 형식이 잘못 되었습니다.');
+          setFields(['phoneNumber', 'bizNum']);
+        });
     }
   };
 
   return (
-    <Modal className={cx('modal__wrap')} open={open} closeFunc={closeFunc}>
-      <DialogTitle className={cx('modal__title')}>
+    <Modal open={open} closeFunc={closeFunc}>
+      <DialogTitle className={cx('modal__store__title')}>
         거래처 새로 등록하기
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={cx('modal__store__wrap')}>
         <div className={cx('modal__store__textarea')}>
           <TextField
             className={
               fields.length > 0 && fields.includes('nickname')
-                ? cx('modal__store__textfield')
-                : cx('modal__store__textfield')
+                ? cx('modal__store__error')
+                : cx('modal__store__three')
             }
             autoFocus
+            required
             margin="dense"
             label="거래처 이름"
             type="string"
@@ -97,10 +129,10 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
           <TextField
             className={
               fields.length > 0 && fields.includes('name')
-                ? cx('modal__store__textfield')
-                : cx('modal__store__textfield')
+                ? cx('modal__store__error')
+                : cx('modal__store__three')
             }
-            autoFocus
+            required
             margin="dense"
             variant="outlined"
             label="거래처 상호"
@@ -109,8 +141,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
             onChange={e => changeText(e, 'name')}
           />
           <TextField
-            className={cx('modal__store__textfield')}
-            autoFocus
+            className={cx('modal__store__three')}
             margin="dense"
             variant="outlined"
             label="대표자"
@@ -121,30 +152,34 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
         </div>
         <div className={cx('modal__store__textarea')}>
           <TextField
-            className={cx('modal__store__textfield')}
-            autoFocus
+            className={
+              fields.length > 0 && fields.includes('phoneNumber')
+                ? cx('modal__store__error')
+                : cx('modal__store__two')
+            }
+            required
+            margin="dense"
+            variant="outlined"
+            label="전화 번호"
+            type="string"
+            inputProps={{ maxLength: 13 }}
+            value={store.phoneNumber}
+            onChange={e => changeText(e, 'phoneNumber')}
+          />
+          <TextField
+            className={cx('modal__store__two')}
             margin="dense"
             variant="outlined"
             label="사업자 번호"
             type="string"
             value={store.bizNum}
+            inputProps={{ maxLength: 12 }}
             onChange={e => changeText(e, 'bizNum')}
-          />
-          <TextField
-            className={cx('modal__store__textfield')}
-            autoFocus
-            margin="dense"
-            variant="outlined"
-            label="전화 번호"
-            type="string"
-            value={store.phoneNumber}
-            onChange={e => changeText(e, 'owner')}
           />
         </div>
         <div className={cx('modal__store__textarea')}>
           <TextField
-            className={cx('modal__store__textfield')}
-            autoFocus
+            className={cx('modal__store__two')}
             margin="dense"
             variant="outlined"
             label="업태"
@@ -153,8 +188,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
             onChange={e => changeText(e, 'category')}
           />
           <TextField
-            className={cx('modal__store__textfield')}
-            autoFocus
+            className={cx('modal__store__two')}
             margin="dense"
             variant="outlined"
             label="종목"
@@ -178,11 +212,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
         {store.address.main !== '' && (
           <div className={cx('modal__store__textarea')}>
             <TextField
-              className={cx(
-                'modal__store__textfield',
-                'modal__address__detail'
-              )}
-              autoFocus
+              className={cx('modal__address__detail')}
               margin="dense"
               variant="outlined"
               label="상세 주소"
@@ -192,6 +222,18 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
             />
           </div>
         )}
+        <div className={cx('modal__store__textarea')}>
+          <TextField
+            className={cx('modal__address__detail')}
+            margin="dense"
+            multiline={true}
+            variant="outlined"
+            label="메모 사항"
+            type="string"
+            value={store.address.description}
+            onChange={e => changeText(e, 'description')}
+          />
+        </div>
         {error && <div>{error}</div>}
       </DialogContent>
       <DialogActions>

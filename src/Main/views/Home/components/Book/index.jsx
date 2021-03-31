@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List, PutItem } from 'Main/components';
+import { List, OrderModalItem } from 'Main/components';
 import { StoreItem } from '../index';
 
 const cx = classNames.bind(styles);
@@ -23,7 +23,7 @@ const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
         ))}
       <List onClick={() => openModal()} />
       {open && (
-        <PutItem
+        <OrderModalItem
           open={open}
           addFunc={addFunc}
           closeFunc={closeModal}

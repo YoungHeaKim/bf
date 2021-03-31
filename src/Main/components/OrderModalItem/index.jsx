@@ -9,25 +9,29 @@ import {
   DialogTitle,
   Button,
   TextField,
+  MenuItem,
 } from '@material-ui/core';
 import { NewItem } from 'Main/components';
+import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
 
-const PutItem = ({ open, closeFunc, addFunc, book }) => {
+const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
   const [order, setOrder] = useState({
-    id: '',
+    _id: '',
     date: '',
-    nickName: '', // TODO: 이부분 List로 보여주어야함
+    store: '', // TODO: 이부분 List로 보여주어야함
     items: [],
   });
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     if (book) setOrder({ ...book });
+    return StoreApi.getList().then(({ stores }) => setStores(stores));
   }, []);
 
   const changeText = (e, target, index) => {
-    if (target === 'nickName' || target === 'date') {
+    if (target === 'store' || target === 'date') {
       setOrder({
         ...order,
         [target]: e.target.value,
@@ -75,11 +79,21 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
             autoFocus
             margin="dense"
             label="거래처 이름"
-            type="string"
+            select
             variant="outlined"
-            value={order.nickName}
-            onChange={e => changeText(e, 'nickName')}
-          />
+            value={order.store.nickname}
+            onChange={e => changeText(e, 'store')}
+          >
+            {stores.length === 0 ? (
+              <p>거래쳐를 먼저 생성해주세요.</p>
+            ) : (
+              stores.map(store => (
+                <MenuItem key={store._id} value={store}>
+                  {store.nickname}
+                </MenuItem>
+              ))
+            )}
+          </TextField>
         </div>
         {order.items.length > 0 &&
           order.items.map((item, i) => (
@@ -107,4 +121,4 @@ const PutItem = ({ open, closeFunc, addFunc, book }) => {
   );
 };
 
-export default withRouter(PutItem);
+export default withRouter(OrderModalItem);

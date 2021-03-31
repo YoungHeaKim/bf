@@ -5,4 +5,4 @@ export { default as SearchBar } from './SearchBar';
 export { default as Modal } from './Modal';
 export { default as Address } from './Address';
 export { default as NewItem } from './NewItem';
-export { default as PutItem } from './PutItem';
+export { default as OrderModalItem } from './OrderModalItem';

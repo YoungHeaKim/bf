@@ -48,15 +48,16 @@ const Main = () => {
   // TODO: 수정 삭제 부분 완료
   const addFunc = order => {
     if (order.items.length === 0) {
-      // TODO: Order delete 요청
-      setOrder(orders.filter(state => state.id !== order.id));
+      return OrderApi.delete(order._id).then(() =>
+        setOrder(orders.filter(state => state._id !== order._id))
+      );
     } else if (order.id === '') {
       // TODO: Order add 요청
-      order.id = String(orders.length + 1);
       order.date = moment();
-      let orderCopy = [...orders];
-      orderCopy.push(order);
-      setOrder(orderCopy);
+      return OrderApi.add(order).then(order => console.log(order));
+      // let orderCopy = [...orders];
+      // orderCopy.push(order);
+      // setOrder(orderCopy);
     } else {
       // TODO: Order patch 요청
       setOrder(orders.map(state => (state.id === order.id ? order : state)));

@@ -2,7 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List, PutItem } from 'Main/components';
+import { List, OrderModalItem } from 'Main/components';
+import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
@@ -25,23 +26,25 @@ const Quarter = ({ order, updateOrders }) => {
   return (
     <Fragment>
       <List onClick={openFunc}>
-        <div className={cx('store__order')}>{order.createdAt}</div>
+        <div className={cx('store__order')}>
+          {moment(order.date).format('YYYY-MM-DD')}
+        </div>
         <div className={cx('store__order__list')}>
           {order.items.length !== 0 &&
             order.items.map((item, index) => (
               <div key={index} className={cx('store__order__item')}>
                 <div className={cx('order__item')}>{item.name}</div>
                 <div className={cx('order__item')}>{item.amount}</div>
-                <div className={cx('order__item')}>{item.price}</div>
+                <div className={cx('order__item')}>{item.price}원</div>
               </div>
             ))}
         </div>
         <div className={cx('store__order', 'store__order__total')}>
-          {order.totalPrice}
+          {order.totalPrice}원
         </div>
       </List>
       {openModal && (
-        <PutItem
+        <OrderModalItem
           book={order}
           open={openModal}
           addFunc={addFunc}

@@ -31,18 +31,13 @@ const StoreList = () => {
     setOpen(false);
   };
 
-  const addModal = store => {
-    return StoreApi.add(store)
-      .then(data => stores.push(data))
-      .then(() => {
-        setOpen(false);
-        setStores(stores);
-      })
-      .catch(() => console.log('오류'));
+  const addModal = stores => {
+    setOpen(false);
+    setStores(stores);
   };
 
   return (
-    <Fragment>
+    <div className={cx('store__list__wrap')}>
       <div className={cx('search__wrap')}>
         <SearchBar searchFunc={searchFunc} search={search} />
       </div>
@@ -65,7 +60,7 @@ const StoreList = () => {
       {open && (
         <AddStore open={open} closeFunc={closeModal} addFunc={addModal} />
       )}
-    </Fragment>
+    </div>
   );
 };
 

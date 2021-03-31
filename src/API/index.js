@@ -6,9 +6,9 @@ const endpoint = '/api';
 axios.interceptors.response.use(
   response => response.data,
   error => {
-    const { data, status } = error.response;
-    if (status === 422) return Promise.reject(data);
+    const { data } = error.response;
     console.error(data);
+    return Promise.reject(data);
   }
 );
 
@@ -68,6 +68,7 @@ const OrderApi = {
     axios.get(`${endpoint}/orders?${date}&store=${store}`),
   get: GET('/orders/:order_id'),
   update: PUT('/orders/:order_id'),
+  delete: DELETE('/orders/:order_id'),
 };
 
 export { StoreApi, AuthApi, OrderApi };

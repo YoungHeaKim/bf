@@ -1,31 +1,37 @@
 @import 'common/stylesheet/index.scss';
 
-.search__wrap {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.store__list {
-  width: 25%;
+.store__list__wrap {
+  width: 90%;
   margin: auto;
-  font-size: $font_size-rem;
-}
 
-.store__title__wrap {
-  background: $color-secondary;
-  width: 100%;
-  margin-top: 20px;
-  box-shadow: 8px 5px 5px $color-box;
-  padding: 0 20px;
-  display: flex;
-  text-align: center;
-  line-height: $line_height-rem;
-  height: 60px;
+  .search__wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 
-  .store__title {
+  .store__list {
     width: 25%;
     margin: auto;
     font-size: $font_size-rem;
+  }
+
+  .store__title__wrap {
+    background: $color-secondary;
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 8px 5px 5px $color-box;
+    padding: 0 20px;
+    display: flex;
+    text-align: center;
+    line-height: $line_height-rem;
+    height: 60px;
+
+    .store__title {
+      width: 25%;
+      margin: auto;
+      font-size: $font_size-rem;
+    }
   }
 }
