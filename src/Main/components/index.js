@@ -6,3 +6,4 @@ export { default as Modal } from './Modal';
 export { default as Address } from './Address';
 export { default as NewItem } from './NewItem';
 export { default as OrderModalItem } from './OrderModalItem';
+export { default as Calendar } from './Calendar';

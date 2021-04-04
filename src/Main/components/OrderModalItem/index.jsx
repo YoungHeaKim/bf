@@ -11,7 +11,7 @@ import {
   TextField,
   MenuItem,
 } from '@material-ui/core';
-import { NewItem } from 'Main/components';
+import { NewItem, Calendar } from 'Main/components';
 import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
@@ -93,6 +93,18 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                 </MenuItem>
               ))
             )}
+          </TextField>
+          <TextField
+            className={cx('modal__order__name')}
+            autoFocus
+            select
+            margin="dense"
+            label="주문 날짜"
+            variant="outlined"
+            value={order.date}
+            onChange={e => changeText(e, 'store')}
+          >
+            <Calendar />
           </TextField>
         </div>
         {order.items.length > 0 &&
