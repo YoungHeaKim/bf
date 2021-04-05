@@ -15,6 +15,7 @@ import { StoreApi } from 'API';
 const cx = classNames.bind(styles);
 
 const AddStore = ({ open, closeFunc, addFunc }) => {
+  // TODO: 기본값 오륲
   const [store, setStore] = useState({
     name: '',
     nickname: '',
