@@ -80,6 +80,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
     setIsPostOpen(false);
   };
 
+  // TODO: add function error
   const postStore = () => {
     if (store.name === '') {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
