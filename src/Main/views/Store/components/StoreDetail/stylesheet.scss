@@ -1,31 +1,39 @@
 @import 'common/stylesheet/index.scss';
+.store__table {
+  margin: auto;
+  width: 90%;
+  margin-top: 20px;
+  padding: 0 20px;
+  box-shadow: 8px 5px 5px $color-box;
+  border: 1px solid $color-box;
 
-.store__order {
-  width: 20%;
-
-  &:last-of-type {
-    margin: auto;
+  .store__header {
+    background: $color-secondary;
   }
-}
 
-.store__order__list {
-  width: 60%;
-  height: auto;
-
-  .store__order__item {
+  .store__tr {
     display: flex;
-    border-bottom: 1px solid $color-secondary;
-    margin-bottom: 10px;
-    width: 100%;
+    font-size: $font_size-rem;
+    line-height: $line_height-rem;
+    padding: 0;
 
-    .order__item {
-      width: 30%;
-      line-height: 40px;
+    .store__td {
+      width: 17%;
       text-align: center;
+      margin: auto;
+
+      &:nth-of-type(3) {
+        width: 29%;
+      }
 
       &:last-of-type {
-        width: 40%;
+        width: 32%;
       }
     }
+  }
+  .store__td__more {
+    width: 33.333%;
+    text-align: center;
+    margin: auto;
   }
 }

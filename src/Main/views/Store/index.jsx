@@ -149,13 +149,17 @@ const Store = ({ location }) => {
           &gt;
         </button>
       </div>
-      {orders.length !== 0 ? (
-        orders.map((order, i) => (
-          <Quarter key={i} order={order} updateOrders={updateOrders} />
-        ))
-      ) : (
-        <div>이번 분기에 주문이 없었습니다.</div>
-      )}
+      <div className={cx('store__detail__list')}>
+        {orders.length !== 0 ? (
+          orders.map((order, i) => (
+            <Quarter key={i} order={order} updateOrders={updateOrders} />
+          ))
+        ) : (
+          <div className={cx('store__detail__none')}>
+            이번 분기에 주문이 없었습니다.
+          </div>
+        )}
+      </div>
     </Fragment>
   );
 };

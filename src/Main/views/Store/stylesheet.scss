@@ -1,58 +1,7 @@
 @import 'common/stylesheet/index.scss';
 
-.search__wrap {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.store__list {
-  width: 25%;
-  margin: auto;
-  font-size: $font_size-rem;
-}
-
-.store__table {
-  width: 100%;
-  margin-top: 20px;
-  padding: 0 20px;
-  box-shadow: 8px 5px 5px $color-box;
-  border: 1px solid $color-box;
-
-  .store__header {
-    background: $color-secondary;
-    // margin-top: 20px;
-  }
-
-  .store__tr {
-    display: flex;
-    font-size: $font_size-rem;
-    line-height: $line_height-rem;
-    padding: 0;
-
-    .store__td {
-      width: 17%;
-      text-align: center;
-      margin: auto;
-
-      &:nth-of-type(3) {
-        width: 29%;
-      }
-
-      &:last-of-type {
-        width: 32%;
-      }
-    }
-  }
-  .store__td__more {
-    width: 33.333%;
-    text-align: center;
-    margin: auto;
-  }
-}
-
 .store__detail__title {
-  width: 100%;
+  width: 90%;
   margin: 20px auto;
   line-height: $line_height-rem;
   text-align: center;
@@ -82,5 +31,15 @@
   .store__next__btn {
     right: 10%;
     margin-top: 3px;
+  }
+}
+
+.store__detail__list {
+  width: 90%;
+  margin: auto;
+
+  .store__detail__none {
+    margin-top: 20px;
+    text-align: center;
   }
 }
