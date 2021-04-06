@@ -45,24 +45,40 @@ const Main = () => {
     return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
   };
 
-  // TODO: 수정 삭제 부분 완료
   const addFunc = order => {
     if (order.items.length === 0) {
-      return OrderApi.delete(order._id).then(() =>
-        setOrder(orders.filter(state => state._id !== order._id))
-      );
+      return OrderApi.delete(order._id)
+        .then(() => {
+          const query = `date>=${date}&date<=${next}`;
+          return OrderApi.getList(query);
+        })
+        .then(({ orders }) => {
+          setOrder(orders);
+          setOpen(false);
+        });
     } else if (order.id === '') {
-      // TODO: Order add 요청
-      order.date = moment();
-      return OrderApi.add(order).then(order => console.log(order));
-      // let orderCopy = [...orders];
-      // orderCopy.push(order);
-      // setOrder(orderCopy);
+      return OrderApi.add(order)
+        .then(() => {
+          const query = `date>=${date}&date<=${next}`;
+          return OrderApi.getList(query);
+        })
+        .then(({ orders }) => {
+          setOrder(orders);
+          setOpen(false);
+        });
     } else {
-      // TODO: Order patch 요청
-      setOrder(orders.map(state => (state.id === order.id ? order : state)));
+      return OrderApi.update(order._id, order)
+        .then(({ order }) => {
+          if (order) {
+            const query = `date>=${date}&date<=${next}`;
+            return OrderApi.getList(query);
+          }
+        })
+        .then(({ orders }) => {
+          setOrder(orders);
+          setOpen(false);
+        });
     }
-    setOpen(false);
   };
 
   return (

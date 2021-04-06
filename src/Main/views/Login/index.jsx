@@ -39,7 +39,7 @@ const Login = ({ loginFunc }) => {
     return AuthApi.createAuth(login)
       .then(loginFunc)
       .catch(data => {
-        console.log('catch', data);
+        setField(['userId', 'password']);
         setError('아이디나 비밀번호가 맞지 않습니다.');
       });
   };
@@ -59,9 +59,10 @@ const Login = ({ loginFunc }) => {
             id="id"
             value={login.userId}
             className={
-              fields.length > 0 && fields.includes('userId')
-                ? cx('login__error__input')
-                : cx('login__input')
+              (cx('login__input'),
+              fields.length > 0 &&
+                fields.includes('userId') &&
+                cx('login__error__input'))
             }
             onChange={e => inputChange(e, 'userId')}
           />
@@ -73,9 +74,10 @@ const Login = ({ loginFunc }) => {
             id="password"
             value={login.password}
             className={
-              fields.length > 0 && fields.includes('password')
-                ? cx('login__error__input')
-                : cx('login__input')
+              (cx('login__input'),
+              fields.length > 0 &&
+                fields.includes('password') &&
+                cx('login__error__input'))
             }
             onChange={e => inputChange(e, 'password')}
           />

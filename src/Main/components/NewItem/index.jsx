@@ -13,32 +13,32 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
     <div className={cx('modal__textarea')}>
       <TextField
         className={cx('modal__order__item')}
-        autoFocus
         margin="dense"
         variant="outlined"
         label="물건 이름"
         type="string"
-        value={item.name}
+        required
+        value={item.name && item.name}
         onChange={e => changeText(e, `name`, index)}
       />
       <TextField
         className={cx('modal__order__item')}
-        autoFocus
         margin="dense"
         variant="outlined"
         label="수량"
-        type="number"
-        value={item.amount}
+        required
+        inputProps={{ type: 'number' }}
+        value={item.amount && item.amount}
         onChange={e => changeText(e, `amount`, index)}
       />
       <TextField
         className={cx('modal__order__item')}
-        autoFocus
         margin="dense"
         variant="outlined"
+        required
         label="가격"
-        type="number"
-        value={item.price}
+        inputProps={{ type: 'number' }}
+        value={item.price && item.price}
         onChange={e => changeText(e, `price`, index)}
       />
       <Button

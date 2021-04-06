@@ -1,9 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { List, SearchBar } from 'Main/components';
-import { AddStore } from './components';
+import { List, SearchBar, AddStore, Modal } from 'Main/components';
 import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
@@ -58,7 +57,9 @@ const StoreList = () => {
         ))}
       <List onClick={() => openModal()} />
       {open && (
-        <AddStore open={open} closeFunc={closeModal} addFunc={addModal} />
+        <Modal open={open} closeFunc={closeModal}>
+          <AddStore addFunc={addModal} closeFunc={closeModal} />
+        </Modal>
       )}
     </div>
   );

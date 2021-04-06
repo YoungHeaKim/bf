@@ -14,8 +14,25 @@
     margin-bottom: 20px;
   }
 
+  .modal__order__error {
+    width: 45%;
+    margin: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ff0000 !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+  }
+
   .modal__order__item {
     width: 33%;
     margin: auto;
   }
+}
+
+.modal__order__msg {
+  width: 100%;
+  color: red;
+  text-align: center;
+  @include font($font_size-18, $line_height-21);
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

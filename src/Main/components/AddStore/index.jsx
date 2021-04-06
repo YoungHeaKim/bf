@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Modal, Address } from 'Main/components';
+import { Address } from 'Main/components';
 import {
   DialogActions,
   DialogContent,
@@ -14,21 +14,21 @@ import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
 
-const AddStore = ({ open, closeFunc, addFunc }) => {
+const AddStore = ({ closeFunc, addFunc }) => {
   // TODO: 기본값 오륲
   const [store, setStore] = useState({
-    name: '',
-    nickname: '',
-    bizNum: '',
-    owner: '',
+    name: undefined,
+    nickname: undefined,
+    bizNum: undefined,
+    owner: undefined,
     address: {
-      main: '',
-      detail: '',
+      main: undefined,
+      detail: undefined,
     },
-    phoneNumber: '',
-    category: '',
-    tag: '',
-    description: '',
+    phoneNumber: undefined,
+    category: undefined,
+    tag: undefined,
+    description: undefined,
   });
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
@@ -36,17 +36,18 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
 
   useEffect(() => {
     const phoneNumber = store.phoneNumber;
-    setStore({
-      ...store,
-      phoneNumber: phoneNumber
-        .replace(/-/g, '')
-        .replace(/(\d{2,3})(\d{4})(\d{4})/, '$1-$2-$3'),
-    });
+    if (phoneNumber)
+      setStore({
+        ...store,
+        phoneNumber: phoneNumber
+          .replace(/-/g, '')
+          .replace(/(\d{2,3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      });
   }, [store.phoneNumber]);
 
   useEffect(() => {
     const bizNum = store.bizNum;
-    if (bizNum.length === 10) {
+    if (bizNum && bizNum.length === 10) {
       setStore({
         ...store,
         bizNum: bizNum
@@ -107,7 +108,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
   };
 
   return (
-    <Modal open={open} closeFunc={closeFunc}>
+    <Fragment>
       <DialogTitle className={cx('modal__store__title')}>
         거래처 새로 등록하기
       </DialogTitle>
@@ -156,7 +157,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
           <TextField
             className={
               fields.length > 0 && fields.includes('phoneNumber')
-                ? cx('modal__store__error')
+                ? cx('modal__store__err')
                 : cx('modal__store__two')
             }
             required
@@ -236,7 +237,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
             onChange={e => changeText(e, 'description')}
           />
         </div>
-        {error && <div>{error}</div>}
+        {error && <div className={cx('modal__store__msg')}>{error}</div>}
       </DialogContent>
       <DialogActions>
         <Button onClick={postStore} color="primary">
@@ -246,7 +247,7 @@ const AddStore = ({ open, closeFunc, addFunc }) => {
           취소
         </Button>
       </DialogActions>
-    </Modal>
+    </Fragment>
   );
 };
 

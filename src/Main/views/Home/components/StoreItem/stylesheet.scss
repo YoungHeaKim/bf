@@ -1,12 +1,19 @@
 @import 'common/stylesheet/index.scss';
 
-.item__name {
-  width: 30%;
-}
+.book__item {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid $color-secondary;
+  line-height: 40px;
 
-.item__quantity {
-  width: 20%;
-}
-.item__price {
-  width: 50%;
+  .item__name {
+    width: 30%;
+  }
+
+  .item__quantity {
+    width: 20%;
+  }
+  .item__price {
+    width: 50%;
+  }
 }
