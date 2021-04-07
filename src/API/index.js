@@ -43,17 +43,17 @@ const POST = (URL, headers) =>
     return axios.post(mappedURL, body, { params, headers });
   });
 
-const PUT = (URL, headers) =>
+const PATCH = (URL, headers) =>
   request(URL, (mappedURL, args) => {
     const [body, params] = args;
-    return axios.put(mappedURL, body, { params, headers });
+    return axios.patch(mappedURL, body, { params, headers });
   });
 
 const StoreApi = {
   add: POST('/stores'),
   getList: GET('/stores'),
   get: GET('/stores/:store_id'),
-  update: PUT('/stores/:store_id'),
+  update: PATCH('/stores/:store_id'),
 };
 
 const AuthApi = {
@@ -67,7 +67,7 @@ const OrderApi = {
   getStoreList: (date, store) =>
     axios.get(`${endpoint}/orders?${date}&store=${store}`),
   get: GET('/orders/:order_id'),
-  update: PUT('/orders/:order_id'),
+  update: PATCH('/orders/:order_id'),
   delete: DELETE('/orders/:order_id'),
 };
 

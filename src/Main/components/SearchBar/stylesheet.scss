@@ -1,9 +1,14 @@
 @import 'common/stylesheet/index.scss';
 
-.search__box {
-  padding: 10px;
-  border: 1px solid $color-secondary;
-  border-radius: 15%;
-  background: $color-box;
-  margin-top: 10px;
+.search__wrap {
+  display: flex;
+
+  .search__box {
+    padding: 10px;
+    border: 1px solid $color-secondary;
+    border-radius: 15%;
+    background: $color-box;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
 }

@@ -3,8 +3,10 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { Quarter, StoreDetail } from './components';
+import { AddStore } from 'Main/components';
 import moment from 'moment';
 import { OrderApi, StoreApi } from 'API';
+import Modal from 'Main/components/Modal';
 
 const cx = classNames.bind(styles);
 
@@ -108,7 +110,11 @@ const Store = ({ location }) => {
   };
 
   const detailBtn = () => {
-    setDetailOn(!detailOn);
+    setDetailOn(true);
+  };
+
+  const closeFunc = () => {
+    setDetailOn(false);
   };
 
   const updateOrders = list => {
@@ -118,6 +124,10 @@ const Store = ({ location }) => {
     } else {
       setOrders(orders.map(state => (state.id === list.id ? list : state)));
     }
+  };
+
+  const addFunc = store => {
+    return StoreApi.get(pathname).then(({ store }) => setStore(store));
   };
 
   return (
@@ -160,6 +170,15 @@ const Store = ({ location }) => {
           </div>
         )}
       </div>
+      {detailOn && (
+        <Modal open={detailOn} closeFunc={closeFunc}>
+          <AddStore
+            storeItem={storeItem}
+            closeFunc={closeFunc}
+            addFunc={addFunc}
+          />
+        </Modal>
+      )}
     </Fragment>
   );
 };

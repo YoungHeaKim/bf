@@ -14,7 +14,7 @@ import { StoreApi } from 'API';
 
 const cx = classNames.bind(styles);
 
-const AddStore = ({ closeFunc, addFunc }) => {
+const AddStore = ({ storeItem, closeFunc, addFunc }) => {
   // TODO: 기본값 오륲
   const [store, setStore] = useState({
     name: undefined,
@@ -33,6 +33,10 @@ const AddStore = ({ closeFunc, addFunc }) => {
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
   const [isPostOpen, setIsPostOpen] = useState(false);
+
+  useEffect(() => {
+    if (storeItem) setStore(storeItem);
+  }, []);
 
   useEffect(() => {
     const phoneNumber = store.phoneNumber;
@@ -110,7 +114,7 @@ const AddStore = ({ closeFunc, addFunc }) => {
   return (
     <Fragment>
       <DialogTitle className={cx('modal__store__title')}>
-        거래처 새로 등록하기
+        {storeItem ? '거래처 수정하기' : '거래처 등록하기'}
       </DialogTitle>
       <DialogContent className={cx('modal__store__wrap')}>
         <div className={cx('modal__store__textarea')}>

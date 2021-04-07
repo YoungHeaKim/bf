@@ -56,23 +56,23 @@ const Main = () => {
           setOrder(orders);
           setOpen(false);
         });
-    } else if (order.id === '') {
-      return OrderApi.add(order)
-        .then(() => {
-          const query = `date>=${date}&date<=${next}`;
-          return OrderApi.getList(query);
-        })
-        .then(({ orders }) => {
-          setOrder(orders);
-          setOpen(false);
-        });
-    } else {
+    } else if (order.id) {
       return OrderApi.update(order._id, order)
         .then(({ order }) => {
           if (order) {
             const query = `date>=${date}&date<=${next}`;
             return OrderApi.getList(query);
           }
+        })
+        .then(({ orders }) => {
+          setOrder(orders);
+          setOpen(false);
+        });
+    } else {
+      return OrderApi.add(order)
+        .then(() => {
+          const query = `date>=${date}&date<=${next}`;
+          return OrderApi.getList(query);
         })
         .then(({ orders }) => {
           setOrder(orders);

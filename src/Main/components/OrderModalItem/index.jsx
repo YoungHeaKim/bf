@@ -32,10 +32,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
     if (book)
       setOrder({
         ...book,
-        items: [
-          ...book.items,
-          { name: undefined, amount: undefined, price: undefined },
-        ],
+        items: [...book.items],
       });
     else {
       setOrder({
@@ -47,6 +44,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
     }
     return StoreApi.getList().then(({ stores }) => setStores(stores));
   }, []);
+  console.log(order);
 
   const changeText = (e, target, index) => {
     if (target === 'store' || target === 'date') {
@@ -81,8 +79,6 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
     if (order.store === undefined || order.store === '') {
       setError('거래처 선택은 필수 값입니다.');
       return setFields(['store']);
-    } else if (filter.length === 0) {
-      return setError('거래처 물건 입력은 필수입니다.');
     } else {
       order.items = order.items
         .filter(orderItem => orderItem.name !== undefined || '')
@@ -149,7 +145,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                 required
                 select
                 variant="outlined"
-                value={order.store && order.store.nickname}
+                value={order.store ? order.store.nickname : ''}
                 onChange={e => changeText(e, 'store')}
               >
                 {stores.length === 0 ? (

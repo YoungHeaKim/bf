@@ -6,7 +6,7 @@ import { List } from 'Main/components';
 
 const cx = classNames.bind(styles);
 
-const StoreDetail = ({ store, detailOn, detailBtn }) => {
+const StoreDetail = ({ store, detailBtn }) => {
   return (
     store && (
       <div className={cx('store__table')}>
@@ -22,7 +22,7 @@ const StoreDetail = ({ store, detailOn, detailBtn }) => {
           <div className={cx('store__td')}>
             {store.phoneNumber ? store.phoneNumber : ''}
           </div>
-          <div className={cx('store__td')}>
+          <div className={cx('store__td', 'store__td__address')}>
             {store.address.main ? (
               <Fragment>
                 {store.address.main}
@@ -34,26 +34,6 @@ const StoreDetail = ({ store, detailOn, detailBtn }) => {
             )}
           </div>
         </List>
-        {detailOn && (
-          <Fragment>
-            <div className={cx('store__tr', 'store__header')}>
-              <div className={cx('store__td__more')}>사업자 번호</div>
-              <div className={cx('store__td__more')}>업태</div>
-              <div className={cx('store__td__more')}>종목</div>
-            </div>
-            <div className={cx('store__tr')}>
-              <div className={cx('store__td__more')}>
-                {store.bizNum ? store.bizNum : ''}
-              </div>
-              <div className={cx('store__td__more')}>
-                {store.category ? store.category : ''}
-              </div>
-              <div className={cx('store__td__more')}>
-                {store.tag ? store.tag : ''}
-              </div>
-            </div>
-          </Fragment>
-        )}
       </div>
     )
   );
