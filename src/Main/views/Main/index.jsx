@@ -17,13 +17,11 @@ const Main = ({ location, history }) => {
     if (!cookies.token) history.push(`/login`);
   }, []);
 
-  // TODO: login 완료시 운
   const loginFunc = data => {
     setUser('user있음');
     return history.push(`/`);
   };
 
-  // TODO: user login 안되어있으면 login창으로 redirect해주기
   return (
     <div className={cx('main__wrap')}>
       {(user || cookies.token) && (

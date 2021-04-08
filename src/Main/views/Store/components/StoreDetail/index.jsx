@@ -23,7 +23,7 @@ const StoreDetail = ({ store, detailBtn }) => {
             {store.phoneNumber ? store.phoneNumber : ''}
           </div>
           <div className={cx('store__td', 'store__td__address')}>
-            {store.address.main ? (
+            {store.address && store.address.main ? (
               <Fragment>
                 {store.address.main}
                 <br />

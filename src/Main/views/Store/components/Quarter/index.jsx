@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { List, OrderModalItem } from 'Main/components';
 import moment from 'moment';
+import { krw } from 'korea-formatter';
 
 const cx = classNames.bind(styles);
 
@@ -35,12 +36,12 @@ const Quarter = ({ order, updateOrders }) => {
               <div key={index} className={cx('store__order__item')}>
                 <div className={cx('order__item')}>{item.name}</div>
                 <div className={cx('order__item')}>{item.amount}</div>
-                <div className={cx('order__item')}>{item.price}원</div>
+                <div className={cx('order__item')}>{krw(item.price)}</div>
               </div>
             ))}
         </div>
         <div className={cx('store__order', 'store__order__total')}>
-          {order.totalPrice}원
+          {krw(order.totalPrice)}
         </div>
       </List>
       {openModal && (

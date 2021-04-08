@@ -33,15 +33,44 @@
     background: rgba(255, 0, 0, 0.1) !important;
   }
 
-  .modal__address {
-    width: 100%;
-    height: auto;
+  .modal__description {
+    width: 95%;
     margin: auto;
   }
+}
 
-  .modal__address__detail {
-    width: 80%;
-    margin: auto;
+.modal__store__address {
+  width: 95%;
+  border: 1px solid rgb(245, 245, 245);
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 20px 0;
+
+  .modal__address__wrap {
+    display: flex;
+
+    &:first-of-type {
+      margin: 0 0 20px 0;
+    }
+
+    .modal__store__label {
+      width: 12%;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      font-size: 15px;
+      margin: auto;
+    }
+
+    .modal__address {
+      width: 85%;
+      height: auto;
+      margin: auto;
+    }
+
+    .modal__address__detail {
+      width: 85%;
+      margin: auto;
+    }
   }
 }
 

@@ -3,10 +3,11 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import DaumPostcode from 'react-daum-postcode';
+import { Modal } from 'Main/components';
 
 const cx = classNames.bind(styles);
 
-const Address = ({ postAddress }) => {
+const SearchAddress = ({ postAddress, open }) => {
   const handleComplete = data => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -26,8 +27,13 @@ const Address = ({ postAddress }) => {
   };
 
   return (
-    <DaumPostcode className={cx('address__wrap')} onComplete={handleComplete} />
+    <Modal open={open} closeFunc={postAddress}>
+      <DaumPostcode
+        className={cx('address__wrap')}
+        onComplete={handleComplete}
+      />
+    </Modal>
   );
 };
 
-export default withRouter(Address);
+export default withRouter(SearchAddress);

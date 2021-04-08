@@ -50,17 +50,14 @@ const Store = ({ location }) => {
     let query = '';
     if (quarterValue === '1분기') {
       query = `date>=${selectYear}-01-01&&date<=${selectYear}-03-31`;
-      return OrderApi.getStoreList(query, pathname);
     } else if (quarterValue === '2분기') {
       query = `date>=${selectYear}-04-01&&date<=${selectYear}-06-31`;
-      return OrderApi.getStoreList(query, pathname);
     } else if (quarterValue === '3분기') {
       query = `date>=${selectYear}-07-01&&date<=${selectYear}-09-31`;
-      return OrderApi.getStoreList(query, pathname);
     } else if (quarterValue === '4분기') {
       query = `date>=${selectYear}-10-01&&date<=${selectYear}-12-31`;
-      return OrderApi.getStoreList(query, pathname);
     }
+    return OrderApi.getStoreList(query, pathname);
   };
 
   const nextQuarter = () => {
@@ -118,16 +115,31 @@ const Store = ({ location }) => {
   };
 
   const updateOrders = list => {
+    console.log(list);
     if (list.items.length === 0) {
-      // TODO: Order delete 요청
-      setOrders(orders.filter(state => state.id !== list.id));
+      return OrderApi.delete(list._id)
+        .then(() => queryFunc(year, quarter))
+        .then(({ orders }) => {
+          setOrders(orders);
+        });
     } else {
-      setOrders(orders.map(state => (state.id === list.id ? list : state)));
+      return OrderApi.update(list._id, list)
+        .then(({ order }) => {
+          if (order) {
+            return queryFunc(year, quarter);
+          }
+        })
+        .then(({ orders }) => {
+          setOrders(orders);
+        });
     }
   };
 
-  const addFunc = store => {
-    return StoreApi.get(pathname).then(({ store }) => setStore(store));
+  const addFunc = () => {
+    return StoreApi.get(pathname).then(({ store }) => {
+      setStore(store);
+      setDetailOn(false);
+    });
   };
 
   return (

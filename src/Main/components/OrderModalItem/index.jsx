@@ -9,6 +9,7 @@ import {
   Button,
   TextField,
   MenuItem,
+  Select,
 } from '@material-ui/core';
 import { Modal, NewItem, Calendar, AddStore } from 'Main/components';
 import { StoreApi } from 'API';
@@ -19,35 +20,42 @@ const cx = classNames.bind(styles);
 const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
   const [order, setOrder] = useState({
     _id: undefined,
-    date: undefined,
-    store: undefined, // TODO: 이부분 List로 보여주어야함
-    items: [],
+    date: moment(),
+    store: undefined,
+    items: [{ name: undefined, amount: undefined, price: undefined }],
   });
   const [stores, setStores] = useState([]);
   const [AddOpen, setAddOpen] = useState(false);
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
+  const [calendarOn, setCalendarOn] = useState(false);
+  const [storeNickname, setStoreNickname] = useState('');
 
+  // TODO: 이부분 체크
   useEffect(() => {
-    if (book)
-      setOrder({
-        ...book,
-        items: [...book.items],
-      });
-    else {
-      setOrder({
-        _id: undefined,
-        date: moment(),
-        store: undefined,
-        items: [{ name: undefined, amount: undefined, price: undefined }],
-      });
-    }
-    return StoreApi.getList().then(({ stores }) => setStores(stores));
+    return StoreApi.getList().then(({ stores }) => {
+      if (book) {
+        setOrder({
+          ...book,
+          items: [...book.items],
+        });
+        setStoreNickname(book.store.nickname);
+      } else {
+        setStoreNickname(stores[0].nickname);
+      }
+      setStores(stores);
+    });
   }, []);
-  console.log(order);
 
+  console.log(order);
   const changeText = (e, target, index) => {
-    if (target === 'store' || target === 'date') {
+    if (target === 'store') {
+      setOrder({
+        ...order,
+        [target]: e.target.value,
+      });
+      setStoreNickname(e.target.value.nickname);
+    } else if (target === 'date') {
       setOrder({
         ...order,
         [target]: e.target.value,
@@ -88,6 +96,10 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
     }
   };
 
+  const calendarToggle = () => {
+    setCalendarOn(true);
+  };
+
   const addItem = () => {
     setOrder({
       ...order,
@@ -114,6 +126,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
       return StoreApi.getList().then(({ stores }) => {
         setStores(stores);
         setOrder({ ...order, store: store });
+        setAddOpen(false);
       });
     }
   };
@@ -133,7 +146,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
           </DialogTitle>
           <DialogContent>
             <div className={cx('modal__textarea')}>
-              <TextField
+              <Select
                 className={
                   fields.length > 0 && fields.includes('store')
                     ? cx('modal__order__error')
@@ -145,33 +158,22 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                 required
                 select
                 variant="outlined"
-                value={order.store ? order.store.nickname : ''}
+                value={storeNickname}
                 onChange={e => changeText(e, 'store')}
               >
-                {stores.length === 0 ? (
-                  <Button onClick={openAddStore}>가게 새로 추가</Button>
-                ) : (
+                {stores.length !== 0 &&
                   stores.map(store => (
                     <MenuItem key={store._id} value={store}>
                       {store.nickname}
                     </MenuItem>
-                  ))
-                )}
+                  ))}
                 <Button onClick={openAddStore}> 가게 새로 추가</Button>
-              </TextField>
-              {/* <TextField
-                className={cx('modal__order__name')}
-        required
-                autoFocus
-                select
-                margin="dense"
-                label="주문 날짜"
-                variant="outlined"
-                value={order.date && moment(order.date).format('YYYY.MM.DD')}
-                onChange={e => changeText(e, 'store')}
-              >
+              </Select>
+              {/* {calendarOn ? (
                 <Calendar />
-              </TextField> */}
+              ) : (
+                <Button onClick={calendarToggle}>달력</Button>
+              )} */}
             </div>
             {order.items.length > 0 &&
               order.items.map((item, i) => (

@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
 import { List, OrderModalItem } from 'Main/components';
 import { StoreItem } from '../index';
+import { krw } from 'korea-formatter';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +19,7 @@ const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
             <div className={cx('book__list__wrap')}>
               <StoreItem items={order.items} />
             </div>
-            <div className={cx('book__total')}>{order.totalPrice}원</div>
+            <div className={cx('book__total')}>{krw(order.totalPrice)}</div>
           </List>
         ))}
       <List onClick={() => openModal()} />

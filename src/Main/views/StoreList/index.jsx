@@ -33,9 +33,11 @@ const StoreList = () => {
     setOpen(false);
   };
 
-  const addModal = stores => {
-    setOpen(false);
-    setStores(stores);
+  const addModal = () => {
+    return StoreApi.getList().then(({ stores }) => {
+      setStores(stores);
+      setOpen(false);
+    });
   };
 
   return (

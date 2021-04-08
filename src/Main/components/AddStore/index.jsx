@@ -2,12 +2,14 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Address } from 'Main/components';
+import { SearchAddress } from 'Main/components';
+import AddressForm from './AddressForm/index';
 import {
   DialogActions,
   DialogContent,
   DialogTitle,
   Button,
+  InputLabel,
   TextField,
 } from '@material-ui/core';
 import { StoreApi } from 'API';
@@ -15,7 +17,6 @@ import { StoreApi } from 'API';
 const cx = classNames.bind(styles);
 
 const AddStore = ({ storeItem, closeFunc, addFunc }) => {
-  // TODO: 기본값 오륲
   const [store, setStore] = useState({
     name: undefined,
     nickname: undefined,
@@ -32,7 +33,6 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
   });
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
-  const [isPostOpen, setIsPostOpen] = useState(false);
 
   useEffect(() => {
     if (storeItem) setStore(storeItem);
@@ -70,6 +70,11 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
           detail: e.target.value,
         },
       });
+    } else if (target === 'address') {
+      setStore({
+        ...store,
+        address: { ...store.address, main: e },
+      });
     } else {
       setStore({
         ...store,
@@ -78,31 +83,24 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
     }
   };
 
-  const postAddress = data => {
-    setStore({
-      ...store,
-      address: { main: data },
-    });
-    setIsPostOpen(false);
-  };
-
-  // TODO: add function error
   const postStore = () => {
-    if (store.name === '') {
-      setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
-      return setFields(['name']);
-    }
-    if (store.nickname === '') {
+    if (!store.nickname) {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
       return setFields(['nickname']);
-    }
-    if (store.phoneNumber === '') {
+    } else if (!store.name) {
+      setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
+      return setFields(['name']);
+    } else if (!store.phoneNumber) {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
       return setFields(['phoneNumber']);
+    } else if (storeItem) {
+      return StoreApi.update(storeItem._id, store).then(({ store }) => {
+        if (store) addFunc();
+      });
     } else {
       return StoreApi.add(store)
-        .then(store => {
-          if (store) addFunc(store);
+        .then(({ store }) => {
+          if (store) addFunc();
         })
         .catch(e => {
           setError('전화번호나 사업자 번호의 형식이 잘못 되었습니다.');
@@ -204,40 +202,16 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
             onChange={e => changeText(e, 'tag')}
           />
         </div>
-        <div className={cx('modal__store__textarea')}>
-          {isPostOpen ? (
-            <Address postAddress={postAddress} />
-          ) : (
-            <Button
-              className={cx('modal__store__textfield', 'modal__address')}
-              onClick={() => setIsPostOpen(true)}
-            >
-              {store.address.main === '' ? '주소추가' : store.address.main}
-            </Button>
-          )}
-        </div>
-        {store.address.main !== '' && (
-          <div className={cx('modal__store__textarea')}>
-            <TextField
-              className={cx('modal__address__detail')}
-              margin="dense"
-              variant="outlined"
-              label="상세 주소"
-              type="string"
-              value={store.address.detail}
-              onChange={e => changeText(e, 'detail')}
-            />
-          </div>
-        )}
+        <AddressForm address={store.address} changeText={changeText} />
         <div className={cx('modal__store__textarea')}>
           <TextField
-            className={cx('modal__address__detail')}
+            className={cx('modal__description')}
             margin="dense"
             multiline={true}
             variant="outlined"
             label="메모 사항"
             type="string"
-            value={store.address.description}
+            value={store.description}
             onChange={e => changeText(e, 'description')}
           />
         </div>
