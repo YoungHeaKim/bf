@@ -11,7 +11,11 @@ const AddressForm = ({ address, changeText }) => {
   const [isPostOpen, setIsPostOpen] = useState(false);
 
   const postAddress = data => {
-    if (data) changeText(data, 'address');
+    changeText(data, 'address');
+    setIsPostOpen(false);
+  };
+
+  const closeFunc = () => {
     setIsPostOpen(false);
   };
 
@@ -22,7 +26,11 @@ const AddressForm = ({ address, changeText }) => {
           기본 주소 :
         </InputLabel>
         {isPostOpen ? (
-          <SearchAddress postAddress={postAddress} open={isPostOpen} />
+          <SearchAddress
+            postAddress={postAddress}
+            open={isPostOpen}
+            closeFunc={closeFunc}
+          />
         ) : (
           <Button
             variant="outlined"

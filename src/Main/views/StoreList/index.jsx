@@ -53,7 +53,7 @@ const StoreList = () => {
       </div>
       {stores.length !== 0 &&
         stores.map((store, i) => (
-          <List to={`/store/${store._id}`} key={i}>
+          <List to={`/store/${store.id}`} key={i}>
             <div className={cx('store__list')}>{store.nickname}</div>
             <div className={cx('store__list')}>{store.name}</div>
             <div className={cx('store__list')}>{store.phoneNumber}</div>

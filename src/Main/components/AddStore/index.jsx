@@ -2,14 +2,12 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { SearchAddress } from 'Main/components';
 import AddressForm from './AddressForm/index';
 import {
   DialogActions,
   DialogContent,
   DialogTitle,
   Button,
-  InputLabel,
   TextField,
 } from '@material-ui/core';
 import { StoreApi } from 'API';
@@ -94,7 +92,7 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
       return setFields(['phoneNumber']);
     } else if (storeItem) {
-      return StoreApi.update(storeItem._id, store).then(({ store }) => {
+      return StoreApi.update(storeItem.id, store).then(({ store }) => {
         if (store) addFunc();
       });
     } else {

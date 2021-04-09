@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogTitle,
   Button,
-  TextField,
   MenuItem,
   Select,
 } from '@material-ui/core';
@@ -19,10 +18,10 @@ const cx = classNames.bind(styles);
 
 const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
   const [order, setOrder] = useState({
-    _id: undefined,
+    id: undefined,
     date: moment(),
     store: undefined,
-    items: [{ name: undefined, amount: undefined, price: undefined }],
+    items: [],
   });
   const [stores, setStores] = useState([]);
   const [AddOpen, setAddOpen] = useState(false);
@@ -41,13 +40,16 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
         });
         setStoreNickname(book.store.nickname);
       } else {
+        setOrder({
+          ...order,
+          items: [{ name: undefined, amount: undefined, price: undefined }],
+        });
         setStoreNickname(stores[0].nickname);
       }
       setStores(stores);
     });
   }, []);
 
-  console.log(order);
   const changeText = (e, target, index) => {
     if (target === 'store') {
       setOrder({
@@ -163,14 +165,16 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
               >
                 {stores.length !== 0 &&
                   stores.map(store => (
-                    <MenuItem key={store._id} value={store}>
+                    <MenuItem key={store.id} value={store}>
                       {store.nickname}
                     </MenuItem>
                   ))}
                 <Button onClick={openAddStore}> 가게 새로 추가</Button>
               </Select>
               {/* {calendarOn ? (
-                <Calendar />
+                <Modal open={calendarOn} closeFunc={setCalendarOn(false)}>
+                  <Calendar />
+                </Modal>
               ) : (
                 <Button onClick={calendarToggle}>달력</Button>
               )} */}

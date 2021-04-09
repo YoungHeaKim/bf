@@ -7,7 +7,7 @@ import { Modal } from 'Main/components';
 
 const cx = classNames.bind(styles);
 
-const SearchAddress = ({ postAddress, open }) => {
+const SearchAddress = ({ postAddress, open, closeFunc }) => {
   const handleComplete = data => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -27,7 +27,7 @@ const SearchAddress = ({ postAddress, open }) => {
   };
 
   return (
-    <Modal open={open} closeFunc={postAddress}>
+    <Modal open={open} closeFunc={closeFunc}>
       <DaumPostcode
         className={cx('address__wrap')}
         onComplete={handleComplete}

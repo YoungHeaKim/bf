@@ -117,13 +117,13 @@ const Store = ({ location }) => {
   const updateOrders = list => {
     console.log(list);
     if (list.items.length === 0) {
-      return OrderApi.delete(list._id)
+      return OrderApi.delete(list.id)
         .then(() => queryFunc(year, quarter))
         .then(({ orders }) => {
           setOrders(orders);
         });
     } else {
-      return OrderApi.update(list._id, list)
+      return OrderApi.update(list.id, list)
         .then(({ order }) => {
           if (order) {
             return queryFunc(year, quarter);
