@@ -152,7 +152,8 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
           </DialogTitle>
           <DialogContent>
             <div className={cx('modal__textarea')}>
-              {/* <Select
+              {/* TODO: 이부분 수정해야함 */}
+              <Select
                 className={
                   fields.length > 0 && fields.includes('store')
                     ? cx('modal__order__error')
@@ -164,9 +165,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                 required
                 select
                 variant="outlined"
-                // value={storeNickname}
-                inputRef={{ required: '거래처를 선택해 주세요!' }}
-                SelectProps={{ native: true }}
+                value={storeNickname}
                 onChange={e => changeText(e, 'store')}
               >
                 {stores.length !== 0 &&
@@ -176,7 +175,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                     </MenuItem>
                   ))}
                 <Button onClick={openAddStore}>가게 새로 추가</Button>
-              </Select> */}
+              </Select>
               {calendarOn ? (
                 <Modal
                   className={cx('modal__calendar')}
