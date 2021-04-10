@@ -38,7 +38,7 @@ const Main = ({ location, history }) => {
         />
         <Route exact path="/" component={Home} />
         <Route exact path="/store" component={StoreList} />
-        <Route exact path="/store/:id" component={Store} />
+        <Route exact path="/store/:_id" component={Store} />
       </Switch>
     </div>
   );

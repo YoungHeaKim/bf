@@ -47,7 +47,7 @@ const Main = () => {
 
   const addFunc = order => {
     if (order.items.length === 0) {
-      return OrderApi.delete(order.id)
+      return OrderApi.delete(order._id)
         .then(() => {
           const query = `date>=${date}&date<=${next}`;
           return OrderApi.getList(query);
@@ -56,9 +56,9 @@ const Main = () => {
           setOrder(orders);
           setOpen(false);
         });
-    } else if (order.id) {
-      order.items.map(item => delete item.id);
-      return OrderApi.update(order.id, order)
+    } else if (order._id) {
+      order.items.map(item => delete item._id);
+      return OrderApi.update(order._id, order)
         .then(({ order }) => {
           if (order) {
             const query = `date>=${date}&date<=${next}`;

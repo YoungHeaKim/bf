@@ -115,15 +115,14 @@ const Store = ({ location }) => {
   };
 
   const updateOrders = list => {
-    console.log(list);
     if (list.items.length === 0) {
-      return OrderApi.delete(list.id)
+      return OrderApi.delete(list._id)
         .then(() => queryFunc(year, quarter))
         .then(({ orders }) => {
           setOrders(orders);
         });
     } else {
-      return OrderApi.update(list.id, list)
+      return OrderApi.update(list._id, list)
         .then(({ order }) => {
           if (order) {
             return queryFunc(year, quarter);
@@ -183,7 +182,7 @@ const Store = ({ location }) => {
         )}
       </div>
       {detailOn && (
-        <Modal open={detailOn} closeFunc={closeFunc}>
+        <Modal open={detailOn} closeFunc={closeFunc} maxWidth="md">
           <AddStore
             storeItem={storeItem}
             closeFunc={closeFunc}

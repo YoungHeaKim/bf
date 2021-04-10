@@ -92,7 +92,7 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
       setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
       return setFields(['phoneNumber']);
     } else if (storeItem) {
-      return StoreApi.update(storeItem.id, store).then(({ store }) => {
+      return StoreApi.update(storeItem._id, store).then(({ store }) => {
         if (store) addFunc();
       });
     } else {

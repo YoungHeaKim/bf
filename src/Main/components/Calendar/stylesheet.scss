@@ -1,82 +1,46 @@
 @import 'common/stylesheet/index.scss';
 
-.calendar {
-  width: 350px;
-  height: 100%;
+.calendar__wrap {
+  width: 100%;
+  margin: auto;
 
-  .calendar__head {
-    width: 100%;
-    display: flex;
-    height: 1.5rem;
-    justify-content: space-around;
-    align-items: center;
+  div {
+    .react-datepicker {
+      width: 100% !important;
+      border: none !important;
+      background-color: $color-secondary;
 
-    .calendar__btn__prev {
-      img {
-        width: 20px;
-        height: 20px;
-        transform: rotate(-90deg);
-      }
-    }
+      .react-datepicker__month-container {
+        width: 100%;
 
-    .calendar__btn__next {
-      img {
-        width: 20px;
-        height: 20px;
-        transform: rotate(-90deg);
-      }
-    }
+        .react-datepicker__header {
+          background-color: $color-secondary !important;
 
-    .calendar__month {
-      font-size: $font_size-rem;
-    }
-  }
-
-  .calendar__date {
-    margin-top: 10px;
-    width: 100%;
-    height: 100%;
-
-    .calendar__date__row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .calendar__date__col {
-        &:first-child {
-          color: red;
-        }
-      }
-    }
-
-    .calendar__date__days {
-      padding-bottom: calc(100% / 7);
-    }
-
-    .calendar__date__dates {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-
-      .calendar__date__col {
-        width: 33px;
-        height: 33px;
-        text-align: center;
-        line-height: 33px;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        user-select: auto;
-        margin: auto;
-        @include font($font_size-14, $line_height-17);
-
-        &.calendar__date__null {
-          background: #fff;
-          border: 0 none;
+          .react-datepicker__current-month {
+            font-size: $font_size-rem;
+          }
+          .react-datepicker__day-name {
+            width: 4rem !important;
+            height: 4rem !important;
+            text-align: center;
+            line-height: 4rem;
+            font-size: $font_size-rem;
+          }
         }
 
-        &.calendar__date__today {
-          color: #81cbf5;
+        .react-datepicker__day {
+          width: 4rem !important;
+          height: 4rem !important;
+          line-height: 4rem !important;
+          font-size: $font_size-rem;
+        }
+
+        .react-datepicker__day--weekend {
+          color: red !important;
+        }
+
+        .react-datepicker__day--selected {
+          color: white !important;
         }
       }
     }

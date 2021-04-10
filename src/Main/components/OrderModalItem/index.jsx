@@ -60,8 +60,9 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
     } else if (target === 'date') {
       setOrder({
         ...order,
-        [target]: e.target.value,
+        [target]: e,
       });
+      setCalendarOn(false);
     } else if (target === 'amount' || target === 'price') {
       let value = Number(e.target.value);
       setOrder({
@@ -136,9 +137,12 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
   const closeStore = () => {
     setAddOpen(false);
   };
+  const closeCalendar = () => {
+    setCalendarOn(false);
+  };
 
   return (
-    <Modal open={open} closeFunc={closeFunc}>
+    <Modal open={open} closeFunc={closeFunc} maxWidth="md">
       {AddOpen ? (
         <AddStore addFunc={addStore} closeFunc={closeStore} />
       ) : (
@@ -148,7 +152,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
           </DialogTitle>
           <DialogContent>
             <div className={cx('modal__textarea')}>
-              <Select
+              {/* <Select
                 className={
                   fields.length > 0 && fields.includes('store')
                     ? cx('modal__order__error')
@@ -160,24 +164,35 @@ const OrderModalItem = ({ open, closeFunc, addFunc, book }) => {
                 required
                 select
                 variant="outlined"
-                value={storeNickname}
+                // value={storeNickname}
+                inputRef={{ required: '거래처를 선택해 주세요!' }}
+                SelectProps={{ native: true }}
                 onChange={e => changeText(e, 'store')}
               >
                 {stores.length !== 0 &&
                   stores.map(store => (
-                    <MenuItem key={store.id} value={store}>
+                    <MenuItem key={store._id} value={store}>
                       {store.nickname}
                     </MenuItem>
                   ))}
-                <Button onClick={openAddStore}> 가게 새로 추가</Button>
-              </Select>
-              {/* {calendarOn ? (
-                <Modal open={calendarOn} closeFunc={setCalendarOn(false)}>
-                  <Calendar />
+                <Button onClick={openAddStore}>가게 새로 추가</Button>
+              </Select> */}
+              {calendarOn ? (
+                <Modal
+                  className={cx('modal__calendar')}
+                  open={calendarOn}
+                  closeFunc={closeCalendar}
+                >
+                  <Calendar selectDate={changeText} date={order.date} />
                 </Modal>
               ) : (
-                <Button onClick={calendarToggle}>달력</Button>
-              )} */}
+                <Button
+                  onClick={calendarToggle}
+                  className={cx('modal__order__date')}
+                >
+                  {moment(order.date).format('YYYY.MM.DD')}
+                </Button>
+              )}
             </div>
             {order.items.length > 0 &&
               order.items.map((item, i) => (

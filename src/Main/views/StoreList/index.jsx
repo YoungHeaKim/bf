@@ -53,7 +53,7 @@ const StoreList = () => {
       </div>
       {stores.length !== 0 &&
         stores.map((store, i) => (
-          <List to={`/store/${store.id}`} key={i}>
+          <List to={`/store/${store._id}`} key={i}>
             <div className={cx('store__list')}>{store.nickname}</div>
             <div className={cx('store__list')}>{store.name}</div>
             <div className={cx('store__list')}>{store.phoneNumber}</div>
@@ -68,7 +68,7 @@ const StoreList = () => {
         ))}
       <List onClick={() => openModal()} />
       {open && (
-        <Modal open={open} closeFunc={closeModal}>
+        <Modal open={open} closeFunc={closeModal} maxWidth="md">
           <AddStore addFunc={addModal} closeFunc={closeModal} />
         </Modal>
       )}

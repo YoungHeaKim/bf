@@ -27,7 +27,7 @@ const SearchAddress = ({ postAddress, open, closeFunc }) => {
   };
 
   return (
-    <Modal open={open} closeFunc={closeFunc}>
+    <Modal open={open} closeFunc={closeFunc} maxWidth="md">
       <DaumPostcode
         className={cx('address__wrap')}
         onComplete={handleComplete}
