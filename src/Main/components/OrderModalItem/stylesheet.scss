@@ -4,39 +4,39 @@
   text-align: center;
 }
 
-.modal__textarea {
+.modal__order__wrap {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
-  .modal__order__name {
+  .modal__order__first {
     width: 45%;
     margin: auto;
-    margin-bottom: 20px;
-  }
 
-  .modal__order__error {
-    width: 45%;
-    margin: auto;
-    margin-bottom: 20px;
-    border: 1px solid #ff0000 !important;
-    background: rgba(255, 0, 0, 0.1) !important;
+    .modal__order__name {
+      width: 100%;
+    }
+
+    .modal__order__date {
+      width: 100%;
+      border: 1px solid rgb(200, 200, 200);
+      border-radius: 5px;
+    }
+
+    .modal__calendar {
+      width: 100%;
+    }
   }
 
   .modal__order__item {
     width: 33%;
     margin: auto;
   }
-
-  .modal__order__date {
-    width: 45%;
+  .modal__order__error {
+    width: 100%;
     margin: auto;
     margin-bottom: 20px;
-    border: 1px solid rgb(200, 200, 200);
-    border-radius: 5px;
-  }
-
-  .modal__calendar {
-    width: 50%;
+    border: 1px solid #ff0000 !important;
+    background: rgba(255, 0, 0, 0.1) !important;
   }
 }
 

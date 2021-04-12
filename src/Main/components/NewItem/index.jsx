@@ -10,9 +10,9 @@ const cx = classNames.bind(styles);
 
 const NewItem = ({ item, changeText, index, removeItem }) => {
   return (
-    <div className={cx('modal__textarea')}>
+    <div className={cx('modal__new__wrap')}>
       <TextField
-        className={cx('modal__order__item')}
+        className={cx('modal__new__item')}
         margin="dense"
         variant="outlined"
         label="물건 이름"
@@ -22,7 +22,7 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         onChange={e => changeText(e, `name`, index)}
       />
       <TextField
-        className={cx('modal__order__item')}
+        className={cx('modal__new__item')}
         margin="dense"
         variant="outlined"
         label="수량"
@@ -32,7 +32,7 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         onChange={e => changeText(e, `amount`, index)}
       />
       <TextField
-        className={cx('modal__order__item')}
+        className={cx('modal__new__item')}
         margin="dense"
         variant="outlined"
         required
@@ -42,7 +42,7 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         onChange={e => changeText(e, `price`, index)}
       />
       <Button
-        className={cx('modal__order__btn')}
+        className={cx('modal__delete__btn')}
         onClick={() => removeItem(index)}
       >
         <img src={Delete} alt="삭제버튼" />

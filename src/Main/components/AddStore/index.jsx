@@ -32,9 +32,7 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
   const [error, setError] = useState(null);
   const [fields, setFields] = useState([]);
 
-  useEffect(() => {
-    if (storeItem) setStore(storeItem);
-  }, []);
+  useEffect(() => storeItem && setStore(storeItem), []);
 
   useEffect(() => {
     const phoneNumber = store.phoneNumber;
@@ -98,7 +96,7 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
     } else {
       return StoreApi.add(store)
         .then(({ store }) => {
-          if (store) addFunc();
+          if (store) addFunc(store);
         })
         .catch(e => {
           setError('전화번호나 사업자 번호의 형식이 잘못 되었습니다.');
