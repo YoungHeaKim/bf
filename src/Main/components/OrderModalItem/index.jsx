@@ -18,7 +18,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
   const [order, setOrder] = useState({
     id: undefined,
     date: moment(),
-    store: undefined,
+    store: {},
     items: [],
   });
   const [error, setError] = useState(null);
@@ -111,7 +111,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
     <Modal open={open} closeFunc={closeFunc} maxWidth="md">
       <Fragment>
         <DialogTitle className={cx('modal__title')}>
-          {propsOrder ? '장부 수정' : '장부 추가'}
+          <div>{propsOrder ? '장부 수정' : '장부 추가'}</div>
         </DialogTitle>
         <DialogContent>
           <div className={cx('modal__order__wrap')}>

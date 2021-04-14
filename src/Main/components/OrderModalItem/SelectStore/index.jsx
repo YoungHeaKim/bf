@@ -8,14 +8,14 @@ import { Modal, AddStore } from 'Main/components';
 
 const cx = classNames.bind(styles);
 
-const SelectStore = ({ fields, changeText, selectStore, storeSelect }) => {
+const SelectStore = ({ fields, changeText, selectStore }) => {
   const [stores, setStores] = useState([]);
   const [AddOpen, setAddOpen] = useState(false);
 
-  // TODO: 이부분 체크
-  useEffect(() => StoreApi.getList().then(({ stores }) => setStores(stores)), [
-    stores,
-  ]);
+  useEffect(
+    () => StoreApi.getList().then(({ stores }) => setStores(stores)),
+    []
+  );
 
   const openAddStore = () => {
     setAddOpen(true);
@@ -53,7 +53,7 @@ const SelectStore = ({ fields, changeText, selectStore, storeSelect }) => {
         select="true"
         variant="outlined"
         renderValue={store => store.nickname}
-        value={selectStore && selectStore}
+        value={selectStore.nickname && selectStore.nickname}
         onChange={e => changeText(e, 'store')}
       >
         {stores.length !== 0 &&

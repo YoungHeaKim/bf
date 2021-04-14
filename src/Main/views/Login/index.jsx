@@ -53,31 +53,27 @@ const Login = ({ loginFunc }) => {
       <h2>Login</h2>
       <form>
         <div className={cx('login__input__wrap')}>
-          <label htmlFor="id">아이디</label>
+          <label>아이디</label>
           <input
             type="text"
-            id="id"
             value={login.userId}
             className={
-              (cx('login__input'),
-              fields.length > 0 &&
-                fields.includes('userId') &&
-                cx('login__error__input'))
+              fields.length > 0 && fields.includes('userId')
+                ? cx('login__error__input')
+                : cx('login__input')
             }
             onChange={e => inputChange(e, 'userId')}
           />
         </div>
         <div className={cx('login__input__wrap')}>
-          <label htmlFor="password">비밀번호</label>
+          <label>비밀번호</label>
           <input
             type="password"
-            id="password"
             value={login.password}
             className={
-              (cx('login__input'),
-              fields.length > 0 &&
-                fields.includes('password') &&
-                cx('login__error__input'))
+              fields.length > 0 && fields.includes('password')
+                ? cx('login__error__input')
+                : cx('login__input')
             }
             onChange={e => inputChange(e, 'password')}
           />
