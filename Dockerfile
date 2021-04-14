@@ -8,4 +8,8 @@ WORKDIR /usr/frontend
 COPY package*.json /usr/frontend/
 RUN npm install
 
+# Bundle app source
+COPY . /usr/frontend
+RUN npm run build
+
 CMD [ "npm", "run", "start" ]
