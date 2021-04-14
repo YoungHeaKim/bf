@@ -28,7 +28,7 @@ const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
           open={open}
           addFunc={addFunc}
           closeFunc={closeModal}
-          book={selectBook}
+          propsOrder={selectBook}
         />
       )}
     </div>
