@@ -21,8 +21,16 @@ const StoreList = () => {
       setSearch({ ...search, key: e.target.value });
     } else {
       setSearch({ ...search, value: e.target.value });
+      if (search.key === 'name') {
+        return StoreApi.getList({
+          name: `/${e.target.value}/i`,
+        }).then(({ stores }) => setStores(stores));
+      } else {
+        return StoreApi.getList({
+          nickname: `/${e.target.value}/i`,
+        }).then(({ stores }) => setStores(stores));
+      }
     }
-    // TODO: Axios로 검색 결과 books 업데이트 시켜주기
   };
 
   const openModal = () => {
