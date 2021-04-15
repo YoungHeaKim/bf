@@ -13,10 +13,14 @@
   }
 
   .date__container {
-    font-size: 1.5rem;
-    font-weight: bolder;
-    text-align: center;
-    line-height: 30px;
     margin-top: 20px;
+
+    .date__container__btn {
+      font-size: 1.5rem;
+      font-weight: bolder;
+      text-align: center;
+      line-height: 30px;
+      font-family: $font-family;
+    }
   }
 }

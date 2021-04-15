@@ -12,6 +12,7 @@ const Main = () => {
   const [orders, setOrder] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectBook, setBook] = useState(undefined);
+  const [calendarToggle, setCalendarToggle] = useState(false);
 
   useEffect(() => {
     const query = `date>=${date}&date<=${next}`;
@@ -82,12 +83,34 @@ const Main = () => {
     }
   };
 
+  const selectDate = select => {
+    const now = select.format('YYYY-MM-DD');
+    const after = moment(select).add(1, 'd').format('YYYY-MM-DD');
+    setDate(now);
+    setNextDate(after);
+    const query = `date>=${now}&date<=${after}`;
+    return OrderApi.getList(query)
+      .then(({ orders }) => setOrder(orders))
+      .then(() => setCalendarToggle(false));
+  };
+
+  const calendarOnDate = () => {
+    setCalendarToggle(true);
+  };
+  const closeCalendar = () => {
+    setCalendarToggle(false);
+  };
+
   return (
     <Fragment>
       <Date
         date={date}
         prevDate={() => prevDate()}
         nextDate={() => nextDate()}
+        calendarToggle={calendarToggle}
+        calendarOnDate={calendarOnDate}
+        closeCalendar={closeCalendar}
+        selectDate={selectDate}
       />
       <Book
         date={date}
