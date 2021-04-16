@@ -46,7 +46,7 @@ const Quarter = ({ order, updateOrders }) => {
       </List>
       {openModal && (
         <OrderModalItem
-          book={order}
+          propsOrder={order}
           open={openModal}
           addFunc={addFunc}
           closeFunc={closeFunc}

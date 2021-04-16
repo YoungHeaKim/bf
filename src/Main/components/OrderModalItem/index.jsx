@@ -43,7 +43,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
     if (target === 'store') {
       return setOrder({
         ...order,
-        [target]: e.target.value,
+        [target]: e,
       });
     } else if (target === 'date') {
       setOrder({
@@ -114,7 +114,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
           <div>{propsOrder ? '장부 수정' : '장부 추가'}</div>
         </DialogTitle>
         <DialogContent>
-          <div className={cx('modal__order__wrap')}>
+          <div className={cx('modal__order')}>
             <SelectStore
               fields={fields}
               changeText={changeText}
@@ -150,7 +150,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
                 removeItem={removeItem}
               />
             ))}
-          <div className={cx('modal__order__wrap')}>
+          <div className={cx('modal__order')}>
             <Button onClick={addItem}>물건 추가 등록</Button>
           </div>
         </DialogContent>

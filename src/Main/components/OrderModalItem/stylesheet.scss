@@ -9,7 +9,7 @@
   }
 }
 
-.modal__order__wrap {
+.modal__order {
   display: flex;
   margin-bottom: 20px;
 
@@ -18,17 +18,16 @@
     font-weight: bolder;
   }
 
-  .modal__order__first {
+  &__first {
     width: 45%;
     margin: auto;
     font-family: $font-family;
 
-    .modal__order__name {
-      width: 100%;
-    }
-
     .modal__order__date {
+      margin-top: 10px;
       width: 100%;
+      height: 2.4rem;
+      line-height: 2.4rem;
       border: 1px solid rgb(200, 200, 200);
       border-radius: 5px;
     }
@@ -38,12 +37,12 @@
     }
   }
 
-  .modal__order__item {
+  &__item {
     width: 33%;
     margin: auto;
   }
 
-  .modal__order__error {
+  &__error {
     width: 100%;
     margin: auto;
     margin-bottom: 20px;
