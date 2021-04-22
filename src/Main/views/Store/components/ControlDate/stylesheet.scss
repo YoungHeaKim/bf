@@ -22,6 +22,16 @@
       line-height: 2.5rem;
       margin: auto;
     }
+
+    &__btn {
+      width: 33%;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      border: 1px solid white;
+      border-radius: 5px;
+      margin: auto;
+      margin-bottom: 20px;
+    }
   }
 
   .detail__title {

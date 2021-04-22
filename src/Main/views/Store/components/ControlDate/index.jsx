@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
+import moment from 'moment';
 import { Modal, Calendar } from 'Main/components';
 
 const cx = classNames.bind(styles);
@@ -80,21 +81,43 @@ const ControlDate = ({
   return (
     <div className={cx('store__detail__title')}>
       {typeToggle ? (
-        <div className={cx('store__detail__title__term')}>
-          <button
-            className={cx('store__detail__title__term__start')}
-            onClick={() => onCalendar(date.start, 'start')}
-          >
-            {date.start.format('YYYY년 MM월 DD일')}
-          </button>
-          ~
-          <button
-            className={cx('store__detail__title__term__end')}
-            onClick={() => onCalendar(date.end, 'end')}
-          >
-            {date.end.format('YYYY년 MM월 DD일')}
-          </button>
-        </div>
+        <Fragment>
+          <div className={cx('store__detail__title__term')}>
+            <button
+              className={cx('store__detail__title__term__btn')}
+              onClick={() => dateFunc(moment().subtract(7, 'd'), 'start')}
+            >
+              일주일
+            </button>
+            <button
+              className={cx('store__detail__title__term__btn')}
+              onClick={() => dateFunc(moment().subtract(1, 'M'), 'start')}
+            >
+              한달
+            </button>
+            <button
+              className={cx('store__detail__title__term__btn')}
+              onClick={() => dateFunc(moment().subtract(1, 'y'), 'start')}
+            >
+              일년
+            </button>
+          </div>
+          <div className={cx('store__detail__title__term')}>
+            <button
+              className={cx('store__detail__title__term__start')}
+              onClick={() => onCalendar(date.start, 'start')}
+            >
+              {date.start.format('YYYY년 MM월 DD일')}
+            </button>
+            ~
+            <button
+              className={cx('store__detail__title__term__end')}
+              onClick={() => onCalendar(date.end, 'end')}
+            >
+              {date.end.format('YYYY년 MM월 DD일')}
+            </button>
+          </div>
+        </Fragment>
       ) : (
         <Fragment>
           <button
