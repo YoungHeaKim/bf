@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './stylesheet.scss';
-import { Quarter, StoreDetail } from './components';
+import { Quarter, StoreDetail, ControlDate } from './components';
 import { AddStore } from 'Main/components';
 import moment from 'moment';
 import { OrderApi, StoreApi } from 'API';
@@ -13,15 +13,19 @@ const cx = classNames.bind(styles);
 const Store = ({ location }) => {
   const [storeItem, setStore] = useState('');
   const [orders, setOrders] = useState([]);
-  const [year, setYear] = useState('');
+  const [year, setYear] = useState(moment().format('YYYY'));
+  const [date, setDate] = useState({
+    start: moment(),
+    end: moment().add(1, 'd'),
+  });
   const [quarter, setQuarter] = useState('');
   const [detailOn, setDetailOn] = useState(false);
+  const [typeToggle, setType] = useState(false);
+
   const pathname = location.pathname.split('/')[2];
 
   useEffect(() => {
     let quarterValue = '';
-    const todayYear = moment().format('YYYY');
-    setYear(todayYear);
 
     const month = moment().format('MM');
 
@@ -38,12 +42,10 @@ const Store = ({ location }) => {
       setQuarter('4분기');
       quarterValue = '4분기';
     }
-    // 가게 정보 api로 가져오기(store)
 
     return StoreApi.get(pathname)
       .then(({ store }) => setStore(store))
-      .then(() => queryFunc(todayYear, quarterValue))
-      .then(({ orders }) => setOrders(orders));
+      .then(() => queryFunc(year, quarterValue));
   }, []);
 
   const queryFunc = (selectYear, quarterValue) => {
@@ -57,57 +59,12 @@ const Store = ({ location }) => {
     } else if (quarterValue === '4분기') {
       query = `date>=${selectYear}-10-01&&date<=${selectYear}-12-31`;
     }
-    return OrderApi.getStoreList(query, pathname);
-  };
 
-  const nextQuarter = () => {
-    if (quarter === '1분기') {
-      setQuarter('2분기');
-      return queryFunc(year, '2분기').then(({ orders }) => setOrders(orders));
-    }
-    if (quarter === '2분기') {
-      setQuarter('3분기');
-      return queryFunc(year, '3분기').then(({ orders }) => setOrders(orders));
-    }
-
-    if (quarter === '3분기') {
-      setQuarter('4분기');
-      return queryFunc(year, '4분기').then(({ orders }) => setOrders(orders));
-    }
-
-    if (quarter === '4분기') {
-      setYear(Number(year) + 1);
-      setQuarter('1분기');
-      return queryFunc(year + 1, '1분기').then(({ orders }) =>
-        setOrders(orders)
-      );
-    }
-  };
-
-  const prevQuarter = () => {
-    if (quarter === '2분기') {
-      setQuarter('1분기');
-      return queryFunc(year, '1분기').then(({ orders }) => setOrders(orders));
-    }
-    if (quarter === '3분기') {
-      setQuarter('2분기');
-      return queryFunc(year, '2분기').then(({ orders }) => setOrders(orders));
-    }
-    if (quarter === '4분기') {
-      setQuarter('3분기');
-      return queryFunc(year, '3분기').then(({ orders }) => setOrders(orders));
-    }
-    if (quarter === '1분기') {
-      setYear(Number(year) - 1);
-      setQuarter('4분기');
-      return queryFunc(year - 1, '4분기').then(({ orders }) =>
-        setOrders(orders)
-      );
-    }
-  };
-
-  const detailBtn = () => {
-    setDetailOn(true);
+    return OrderApi.getStoreList(query, pathname).then(({ orders }) => {
+      setYear(selectYear);
+      setQuarter(quarterValue);
+      return setOrders(orders);
+    });
   };
 
   const closeFunc = () => {
@@ -116,21 +73,11 @@ const Store = ({ location }) => {
 
   const updateOrders = list => {
     if (list.items.length === 0) {
-      return OrderApi.delete(list._id)
-        .then(() => queryFunc(year, quarter))
-        .then(({ orders }) => {
-          setOrders(orders);
-        });
+      return OrderApi.delete(list._id).then(() => queryFunc(year, quarter));
     } else {
-      return OrderApi.update(list._id, list)
-        .then(({ order }) => {
-          if (order) {
-            return queryFunc(year, quarter);
-          }
-        })
-        .then(({ orders }) => {
-          setOrders(orders);
-        });
+      return OrderApi.update(list._id, list).then(
+        ({ order }) => order && queryFunc(year, quarter)
+      );
     }
   };
 
@@ -141,35 +88,82 @@ const Store = ({ location }) => {
     });
   };
 
+  const toggleControl = type => {
+    if (type === 'quarter') {
+      // 분기별 장부 가져오는 부분
+      setType(false);
+    } else {
+      // 지정 날짜 장부 가져오는 부분
+      setType(true);
+      const query = `date>=${date.start.format(
+        'YYYY-MM-DD'
+      )}&&date<=${date.end.format('YYYY-MM-DD')}`;
+
+      return OrderApi.getStoreList(query, pathname).then(({ orders }) =>
+        setOrders(orders)
+      );
+    }
+  };
+
+  const dateFunc = (selectDate, type) => {
+    setDate({ ...date, [type]: selectDate });
+
+    if (type === 'start') {
+      const query = `date>=${selectDate.format(
+        'YYYY-MM-DD'
+      )}&&date<=${date.end.format('YYYY-MM-DD')}`;
+
+      return OrderApi.getStoreList(query, pathname).then(({ orders }) =>
+        setOrders(orders)
+      );
+    } else {
+      const query = `date>=${date.start.format(
+        'YYYY-MM-DD'
+      )}&&date<=${selectDate.format('YYYY-MM-DD')}`;
+
+      return OrderApi.getStoreList(query, pathname).then(({ orders }) =>
+        setOrders(orders)
+      );
+    }
+  };
+
   return (
     <Fragment>
       <StoreDetail
         store={storeItem}
-        detailBtn={detailBtn}
+        detailBtn={() => setDetailOn(true)}
         detailOn={detailOn}
       />
-      <div className={cx('store__detail__title')}>
-        <button
-          className={cx('store__prev__btn')}
-          onClick={prevQuarter}
-          type="button"
+      <ul className={cx('store__detail__type')}>
+        <li
+          className={
+            typeToggle
+              ? cx('store__detail__type__li')
+              : cx('store__detail__type__on')
+          }
+          onClick={() => toggleControl('quarter')}
         >
-          &lt;
-        </button>
-        <div className={cx('detail__title')}>
-          {year}년 {quarter}
-        </div>
-        <div className={cx('detail__title')}>
-          {storeItem.nickname} 분기별 장부
-        </div>
-        <button
-          className={cx('store__next__btn')}
-          onClick={nextQuarter}
-          type="button"
+          분기별
+        </li>
+        <li
+          className={
+            typeToggle
+              ? cx('store__detail__type__on')
+              : cx('store__detail__type__li')
+          }
+          onClick={() => toggleControl()}
         >
-          &gt;
-        </button>
-      </div>
+          기간별
+        </li>
+      </ul>
+      <ControlDate
+        queryFunc={queryFunc}
+        dateFunc={dateFunc}
+        quarter={quarter}
+        year={year}
+        date={date}
+        typeToggle={typeToggle}
+      />
       <div className={cx('store__detail__list')}>
         {orders.length !== 0 ? (
           orders.map((order, i) => (

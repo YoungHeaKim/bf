@@ -13,9 +13,7 @@ const Main = ({ location, history }) => {
   const [cookies] = useCookies(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    if (!cookies.token) history.push(`/login`);
-  }, []);
+  useEffect(() => !cookies.token && history.push(`/login`), []);
 
   const loginFunc = data => {
     setUser('user있음');

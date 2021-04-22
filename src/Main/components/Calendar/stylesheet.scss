@@ -4,7 +4,7 @@
   width: 100%;
   margin: auto;
 
-  .calendar__control {
+  &__control {
     width: 100%;
     background-color: #efb8e4;
     height: 5rem;
@@ -20,12 +20,12 @@
       line-height: 4rem;
       margin: auto;
 
-      .calendar__btn__prev {
+      &__prev {
         width: 100%;
         height: 100%;
         transform: rotate(90deg);
       }
-      .calendar__btn__next {
+      &__next {
         width: 100%;
         height: 100%;
         transform: rotate(-90deg);
@@ -42,7 +42,7 @@
     }
   }
 
-  .calendar__date__wrap {
+  &__date__wrap {
     width: 100%;
   }
 }

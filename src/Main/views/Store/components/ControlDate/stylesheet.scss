@@ -1,29 +1,5 @@
 @import 'common/stylesheet/index.scss';
 
-.store__detail__type {
-  display: flex;
-  width: 90%;
-  margin: 20px auto 0;
-  list-style: none;
-  padding-left: 0;
-
-  &__li,
-  &__on {
-    width: 50%;
-    border: 1px solid $color-box;
-    border-radius: 5px;
-    line-height: 3rem;
-    text-align: center;
-    font-family: $font-family;
-    font-size: $font_size-rem;
-  }
-
-  &__on {
-    color: white;
-    background-color: #efb8e4;
-  }
-}
-
 .store__detail__title {
   width: 90%;
   margin: 20px auto;
@@ -36,11 +12,22 @@
 
   &__term {
     width: 100%;
+    display: flex;
+    font-size: $font_size-rem;
+    font-family: $font-family;
+
+    &__start,
+    &__end {
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin: auto;
+    }
   }
 
   .detail__title {
     font-size: $font_size-rem;
     line-height: $line_height-rem;
+    font-family: $font-family;
   }
 
   .store__prev__btn,
@@ -59,15 +46,5 @@
   .store__next__btn {
     right: 10%;
     margin-top: 3px;
-  }
-}
-
-.store__detail__list {
-  width: 90%;
-  margin: auto;
-
-  .store__detail__none {
-    margin-top: 20px;
-    text-align: center;
   }
 }

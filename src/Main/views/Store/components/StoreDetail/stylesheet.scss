@@ -1,9 +1,9 @@
 @import 'common/stylesheet/index.scss';
+
 .store__table {
   margin: auto;
   width: 90%;
   margin-top: 20px;
-  padding: 0 20px;
   box-shadow: 8px 5px 5px $color-box;
   border: 1px solid $color-box;
 
@@ -11,13 +11,13 @@
     background: $color-secondary;
   }
 
-  .store__tr {
+  &__tr {
     display: flex;
     font-size: $font_size-rem;
     line-height: $line_height-rem;
     padding: 0;
 
-    .store__td {
+    &__td {
       width: 17%;
       text-align: center;
       margin: auto;
