@@ -8,7 +8,9 @@ const cx = classNames.bind(styles);
 const Header = () => {
   return (
     <div className={cx('logo__Wrap')}>
-      <h1 className={cx('logo')}>방배 정읍 고추 방앗간</h1>
+      <h1 className={cx('logo')}>
+        <a href={'/'}>가게 관리</a>
+      </h1>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Calendar = ({ date, selectDate }) => {
   };
 
   const chooseDate = date => {
-    selectDate(moment(date), 'date');
+    selectDate(date, 'date');
   };
 
   return (

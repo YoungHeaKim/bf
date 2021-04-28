@@ -5,8 +5,8 @@ import moment from 'moment';
 import { OrderApi } from 'API';
 
 const Main = () => {
-  const today = moment().format('YYYY-MM-DD');
-  const nextD = moment().add(1, 'd').format('YYYY-MM-DD');
+  const today = moment();
+  const nextD = moment().add(1, 'd');
   const [date, setDate] = useState(today);
   const [next, setNextDate] = useState(nextD);
   const [orders, setOrder] = useState([]);
@@ -14,10 +14,14 @@ const Main = () => {
   const [selectBook, setBook] = useState(undefined);
   const [calendarToggle, setCalendarToggle] = useState(false);
 
-  useEffect(() => {
-    const query = `date>=${date}&date<=${next}`;
+  useEffect(() => queryFunc(date, next), []);
+
+  const queryFunc = (preDate, nextDate) => {
+    const query = `date>=${moment(preDate).format('YYYY-MM-DD')}&date<${moment(
+      nextDate
+    ).format('YYYY-MM-DD')}`;
     return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
-  }, []);
+  };
 
   const openModal = book => {
     setBook(book);
@@ -29,69 +33,55 @@ const Main = () => {
   };
 
   const prevDate = () => {
-    const now = moment(date).subtract(1, 'd').format('YYYY-MM-DD');
+    const now = moment(date).subtract(1, 'd');
     const after = date;
     setDate(now);
     setNextDate(after);
-    const query = `date>=${now}&date<=${after}`;
-    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
+
+    return queryFunc(now, after);
   };
 
   const nextDate = () => {
     const now = next;
-    const after = moment(next).add(1, 'd').format('YYYY-MM-DD');
+    const after = moment(next).add(1, 'd');
     setDate(now);
     setNextDate(after);
-    const query = `date>=${now}&date<=${after}`;
-    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
+
+    return queryFunc(now, after);
   };
 
-  const addFunc = order => {
-    if (order.items.length === 0) {
-      return OrderApi.delete(order._id)
-        .then(() => {
-          const query = `date>=${date}&date<=${next}`;
-          return OrderApi.getList(query);
-        })
-        .then(({ orders }) => {
-          setOrder(orders);
-          setOpen(false);
-        });
+  const selectDate = select => {
+    const now = select;
+    const after = moment(select).add(1, 'd');
+    setDate(now);
+    setNextDate(after);
+
+    return queryFunc(now, after).then(() => setCalendarToggle(false));
+  };
+
+  const addFunc = (order, type) => {
+    order.date = moment(order.date).format('YYYY-MM-DD');
+
+    if (type === '삭제' || order.items.length === 0) {
+      if (order._id) {
+        return OrderApi.delete(order._id)
+          .then(() => queryFunc(date, next))
+          .then(() => setOpen(false));
+      } else {
+        setOpen(false);
+      }
     } else if (order._id) {
       order.items.map(item => delete item._id);
       return OrderApi.update(order._id, order)
         .then(({ order }) => {
-          if (order) {
-            const query = `date>=${date}&date<=${next}`;
-            return OrderApi.getList(query);
-          }
+          if (order) queryFunc(date, next);
         })
-        .then(({ orders }) => {
-          setOrder(orders);
-          setOpen(false);
-        });
+        .then(() => setOpen(false));
     } else {
       return OrderApi.add(order)
-        .then(() => {
-          const query = `date>=${date}&date<=${next}`;
-          return OrderApi.getList(query);
-        })
-        .then(({ orders }) => {
-          setOrder(orders);
-          setOpen(false);
-        });
+        .then(() => queryFunc(date, next))
+        .then(() => setOpen(false));
     }
-  };
-
-  const selectDate = select => {
-    const now = select.format('YYYY-MM-DD');
-    const after = moment(select).add(1, 'd').format('YYYY-MM-DD');
-    setDate(now);
-    setNextDate(after);
-    const query = `date>=${now}&date<=${after}`;
-    return OrderApi.getList(query)
-      .then(({ orders }) => setOrder(orders))
-      .then(() => setCalendarToggle(false));
   };
 
   const calendarOnDate = () => {
@@ -104,7 +94,7 @@ const Main = () => {
   return (
     <Fragment>
       <Date
-        date={date}
+        date={moment(date).format('YYYY-MM-DD')}
         prevDate={() => prevDate()}
         nextDate={() => nextDate()}
         calendarToggle={calendarToggle}

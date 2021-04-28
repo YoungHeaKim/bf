@@ -14,7 +14,7 @@ import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
-const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
+const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder, date }) => {
   const [order, setOrder] = useState({
     id: undefined,
     date: moment(),
@@ -34,6 +34,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
           })
         : setOrder({
             ...order,
+            date: moment(date),
             items: [{ name: undefined, amount: undefined, price: undefined }],
           }),
     []
@@ -51,14 +52,6 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
         [target]: e,
       });
       return setCalendarOn(false);
-    } else if (target === 'amount' || target === 'price') {
-      let value = Number(e.target.value);
-      return setOrder({
-        ...order,
-        items: order.items.map((item, i) =>
-          i === index ? { ...item, [target]: value } : item
-        ),
-      });
     } else {
       return setOrder({
         ...order,
@@ -105,6 +98,10 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
 
   const closeCalendar = () => {
     setCalendarOn(false);
+  };
+
+  const deleteOrder = () => {
+    return addFunc(propsOrder, '삭제');
   };
 
   return (
@@ -159,6 +156,11 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder }) => {
           <Button onClick={changeOrder} color="primary">
             등록
           </Button>
+          {propsOrder && (
+            <Button onClick={deleteOrder} color="primary">
+              삭제
+            </Button>
+          )}
           <Button onClick={closeFunc} color="primary">
             취소
           </Button>

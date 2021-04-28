@@ -8,7 +8,15 @@ import { krw } from 'korea-formatter';
 
 const cx = classNames.bind(styles);
 
-const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
+const Book = ({
+  orders,
+  addFunc,
+  open,
+  selectBook,
+  openModal,
+  closeModal,
+  date,
+}) => {
   return (
     <div className={cx('book__wrap')}>
       <div className={cx('book__title')}>장부</div>
@@ -25,6 +33,7 @@ const Book = ({ orders, addFunc, open, selectBook, openModal, closeModal }) => {
       <List onClick={() => openModal()} />
       {open && (
         <OrderModalItem
+          date={date}
           open={open}
           addFunc={addFunc}
           closeFunc={closeModal}
