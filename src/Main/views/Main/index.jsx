@@ -13,7 +13,12 @@ const Main = ({ location, history }) => {
   const [cookies] = useCookies(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => !cookies.token && history.push(`/login`), []);
+  useEffect(() => {
+    if (!cookies.token) {
+      history.push(`/login`);
+      return setUser(null);
+    }
+  }, []);
 
   const loginFunc = data => {
     setUser('user있음');
