@@ -33,20 +33,15 @@ const StoreList = () => {
     }
   };
 
-  const openModal = () => {
-    setOpen(true);
-  };
+  const openModal = () => setOpen(true);
 
-  const closeModal = () => {
-    setOpen(false);
-  };
+  const closeModal = () => setOpen(false);
 
-  const addModal = () => {
-    return StoreApi.getList().then(({ stores }) => {
+  const addModal = () =>
+    StoreApi.getList().then(({ stores }) => {
       setStores(stores);
       setOpen(false);
     });
-  };
 
   return (
     <div className={cx('store__list__wrap')}>
@@ -56,7 +51,7 @@ const StoreList = () => {
       <div className={cx('store__title__wrap')}>
         <div className={cx('store__title')}>닉네임</div>
         <div className={cx('store__title')}>상호</div>
-        <div className={cx('store__title')}>젼화 번호</div>
+        <div className={cx('store__title')}>전화 번호</div>
         <div className={cx('store__title')}>주소</div>
       </div>
       {stores.length !== 0 &&

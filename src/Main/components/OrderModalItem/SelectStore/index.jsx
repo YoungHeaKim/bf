@@ -77,7 +77,7 @@ const SelectStore = ({ fields, changeText, selectStore }) => {
               </li>
             ))}
           <li className={cx('modal__order__list__item')}>
-            <button onClick={openAddStore}>가게 새로 추가</button>
+            <button onClick={openAddStore}>거래처 추가</button>
           </li>
         </ul>
       </div>

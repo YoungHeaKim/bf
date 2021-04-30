@@ -7,6 +7,7 @@ import { AddStore } from 'Main/components';
 import moment from 'moment';
 import { OrderApi, StoreApi } from 'API';
 import Modal from 'Main/components/Modal';
+import { krw } from 'korea-formatter';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,7 @@ const Store = ({ location }) => {
     end: moment().add(1, 'd'),
   });
   const [quarter, setQuarter] = useState('');
+  const [totalPrice, setTotal] = useState(0);
   const [detailOn, setDetailOn] = useState(false);
   const [typeToggle, setType] = useState(false);
 
@@ -60,11 +62,20 @@ const Store = ({ location }) => {
       query = `date>=${selectYear}-10-01&&date<=${selectYear}-12-31`;
     }
 
-    return OrderApi.getStoreList(query, pathname).then(({ orders }) => {
-      setYear(selectYear);
-      setQuarter(quarterValue);
-      return setOrders(orders);
-    });
+    return OrderApi.getStoreList(query, pathname)
+      .then(({ orders }) => {
+        setYear(selectYear);
+        setQuarter(quarterValue);
+        setOrders(orders);
+        return orders;
+      })
+      .then(orders => {
+        let total = 0;
+        for (let i = 0; i < orders.length; i++) {
+          total += orders[i].totalPrice;
+        }
+        return setTotal(total);
+      });
   };
 
   const closeFunc = () => {
@@ -92,6 +103,7 @@ const Store = ({ location }) => {
     if (type === 'quarter') {
       // 분기별 장부 가져오는 부분
       setType(false);
+      return queryFunc(year, quarter);
     } else {
       // 지정 날짜 장부 가져오는 부분
       setType(true);
@@ -164,6 +176,13 @@ const Store = ({ location }) => {
         date={date}
         typeToggle={typeToggle}
       />
+      {!typeToggle && (
+        <div className={cx('store__detail__total')}>
+          <div className={cx('store__detail__total__wrap')}>
+            총가격: {krw(totalPrice)}
+          </div>
+        </div>
+      )}
       <div className={cx('store__detail__list')}>
         {orders.length !== 0 ? (
           orders.map((order, i) => (
@@ -175,6 +194,7 @@ const Store = ({ location }) => {
           </div>
         )}
       </div>
+
       {detailOn && (
         <Modal open={detailOn} closeFunc={closeFunc} maxWidth="md">
           <AddStore

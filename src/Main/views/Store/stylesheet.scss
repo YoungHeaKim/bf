@@ -20,7 +20,7 @@
 
   &__on {
     color: white;
-    background-color: #efb8e4;
+    background-color: #f4a9a8;
   }
 }
 
@@ -68,6 +68,21 @@
 
   .store__detail__none {
     margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.store__detail__total {
+  width: 90%;
+  margin: 20px auto;
+
+  &__wrap {
+    float: right;
+    width: 200px;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: $font_size-rem;
+    border-radius: 5px;
     text-align: center;
   }
 }
