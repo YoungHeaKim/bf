@@ -51,7 +51,7 @@ const PATCH = (URL, headers) =>
 
 const StoreApi = {
   add: POST('/stores'),
-  getList: GET('/stores'),
+  getList: GET('/stores?sort=nickname'),
   get: GET('/stores/:store_id'),
   update: PATCH('/stores/:store_id'),
 };
