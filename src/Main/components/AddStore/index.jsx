@@ -35,17 +35,6 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
   useEffect(() => storeItem && setStore(storeItem), []);
 
   useEffect(() => {
-    const phoneNumber = store.phoneNumber;
-    if (phoneNumber)
-      setStore({
-        ...store,
-        phoneNumber: phoneNumber
-          .replace(/-/g, '')
-          .replace(/(\d{2,3})(\d{4})(\d{4})/, '$1-$2-$3'),
-      });
-  }, [store.phoneNumber]);
-
-  useEffect(() => {
     const bizNum = store.bizNum;
     if (bizNum && bizNum.length === 10) {
       setStore({
@@ -59,7 +48,7 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
 
   const changeText = (e, target) => {
     if (target === 'detail') {
-      setStore({
+      return setStore({
         ...store,
         address: {
           ...store.address,
@@ -67,12 +56,33 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
         },
       });
     } else if (target === 'address') {
-      setStore({
+      return setStore({
         ...store,
         address: { ...store.address, main: e },
       });
+    } else if (target === 'phoneNumber') {
+      let phoneNumber = store.phoneNumber;
+      if (phoneNumber && phoneNumber.length === 9) {
+        return setStore({
+          ...store,
+          [target]: e.target.value
+            .replace(/-/g, '')
+            .replace(/(\d{2})(\d{3})(\d{4})/, '$1-$2-$3'),
+        });
+      } else if (phoneNumber && phoneNumber.length >= 10) {
+        return setStore({
+          ...store,
+          [target]: e.target.value
+            .replace(/-/g, '')
+            .replace(/(\d{2,3})(\d{4})(\d{4})/, '$1-$2-$3'),
+        });
+      }
+      return setStore({
+        ...store,
+        [target]: e.target.value,
+      });
     } else {
-      setStore({
+      return setStore({
         ...store,
         [target]: e.target.value,
       });
@@ -81,14 +91,11 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
 
   const postStore = () => {
     if (!store.nickname) {
-      setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
+      setError('상호, 닉네임은 필수 입력값입니다.');
       return setFields(['nickname']);
     } else if (!store.name) {
-      setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
+      setError('상호, 닉네임은 필수 입력값입니다.');
       return setFields(['name']);
-    } else if (!store.phoneNumber) {
-      setError('상호, 닉네임, 전화번호는 필수 입력값입니다.');
-      return setFields(['phoneNumber']);
     } else if (storeItem) {
       return StoreApi.update(storeItem._id, store).then(({ store }) => {
         if (store) addFunc();
@@ -158,7 +165,6 @@ const AddStore = ({ storeItem, closeFunc, addFunc }) => {
                 ? cx('modal__store__err')
                 : cx('modal__store__two')
             }
-            required
             margin="dense"
             variant="outlined"
             label="전화 번호"
