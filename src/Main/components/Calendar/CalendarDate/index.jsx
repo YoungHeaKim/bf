@@ -5,20 +5,20 @@ import styles from './stylesheet.scss';
 
 const cx = classNames.bind(styles);
 
-const CalendarDate = ({ m, firstWeek, lastWeek, selectDate, changeMonth }) => {
+const CalendarDate = ({ firstWeek, lastWeek, selectDate, changeMonth }) => {
   const onClick = date => {
     selectDate(date);
   };
 
   const dateArrFunc = index => {
-    let days = m
+    let days = changeMonth
       .clone()
       .startOf('year')
       .week(week)
       .startOf('week')
       .add(index, 'day');
 
-    if (m.format('YYYYMMDD') === days.format('YYYYMMDD')) {
+    if (changeMonth.format('YYYYMMDD') === days.format('YYYYMMDD')) {
       return (
         <td
           key={index}

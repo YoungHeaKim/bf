@@ -9,7 +9,6 @@ import CalendarDate from './CalendarDate';
 const cx = classNames.bind(styles);
 
 const Calendar = ({ date, selectDate }) => {
-  const [m] = useState(moment(date));
   const [changeMonth, setChangeMoment] = useState(moment(date));
 
   const firstWeek = changeMonth.clone().startOf('month').week();
@@ -26,8 +25,8 @@ const Calendar = ({ date, selectDate }) => {
     setChangeMoment(changeMonth.clone().add(1, 'month'));
   };
 
-  const chooseDate = date => {
-    selectDate(date, 'date');
+  const chooseDate = select => {
+    selectDate(select, 'date');
   };
 
   return (
@@ -56,7 +55,6 @@ const Calendar = ({ date, selectDate }) => {
       <table className={cx('calendar__date__wrap')}>
         <tbody>
           <CalendarDate
-            m={m}
             changeMonth={changeMonth}
             firstWeek={firstWeek}
             lastWeek={lastWeek}
