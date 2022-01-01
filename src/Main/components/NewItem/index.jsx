@@ -15,6 +15,8 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         className={cx('modal__new__item')}
         margin="dense"
         variant="outlined"
+        inputProps={{ style: { fontSize: '20px', height: '2rem' } }}
+        InputLabelProps={{ style: { fontSize: '20px' } }}
         label="물건 이름"
         type="string"
         required
@@ -25,9 +27,13 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         className={cx('modal__new__item')}
         margin="dense"
         variant="outlined"
+        inputProps={{
+          style: { fontSize: '20px', height: '2rem' },
+          type: 'number',
+        }}
+        InputLabelProps={{ style: { fontSize: '20px' } }}
         label="수량"
         required
-        inputProps={{ type: 'number' }}
         value={item.amount && item.amount}
         onChange={e => changeText(e, `amount`, index)}
       />
@@ -36,8 +42,12 @@ const NewItem = ({ item, changeText, index, removeItem }) => {
         margin="dense"
         variant="outlined"
         required
+        InputLabelProps={{ style: { fontSize: '20px' } }}
+        inputProps={{
+          style: { fontSize: '20px', height: '2rem' },
+          type: 'number',
+        }}
         label="가격"
-        inputProps={{ type: 'number' }}
         value={item.price && item.price}
         onChange={e => changeText(e, `price`, index)}
       />

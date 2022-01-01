@@ -4,6 +4,7 @@
   text-align: center;
 
   div {
+    font-size: $font_size-28;
     font-weight: bold;
     font-family: $font-family;
   }
@@ -14,8 +15,16 @@
   margin-bottom: 20px;
 
   Button {
+    font-size: $font_size-18;
+    height: 3rem;
+    line-height: 3rem;
     font-family: $font-family;
     font-weight: bolder;
+  }
+
+  .mordal__order--add--btn {
+    border: 1px solid;
+    margin-left: 20px;
   }
 
   &__first {
@@ -26,8 +35,9 @@
     .modal__order__date {
       margin-top: 10px;
       width: 100%;
-      height: 2.4rem;
-      line-height: 2.4rem;
+      font-size: $font_size-18;
+      height: 3rem;
+      line-height: 3rem;
       border: 1px solid rgb(200, 200, 200);
       border-radius: 5px;
     }
@@ -58,4 +68,10 @@
   @include font($font_size-18, $line_height-21);
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.modal__order--btn {
+  .MuiButton-label {
+    font-size: 1.35rem;
+  }
 }

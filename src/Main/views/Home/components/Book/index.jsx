@@ -16,10 +16,14 @@ const Book = ({
   openModal,
   closeModal,
   date,
+  totalPrice,
 }) => {
   return (
     <div className={cx('book__wrap')}>
-      <div className={cx('book__title')}>장부</div>
+      <div className={cx('book__title')}>
+        <span>장부</span>
+        <span>총 금액: {krw(totalPrice)}</span>
+      </div>
       {orders.length !== 0 &&
         orders.map((order, i) => (
           <List key={i} onClick={() => openModal(order)} closeFunc={closeModal}>

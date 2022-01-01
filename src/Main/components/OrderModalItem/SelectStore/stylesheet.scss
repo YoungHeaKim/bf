@@ -1,7 +1,7 @@
 @import 'common/stylesheet/index.scss';
 
 .modal__order__first {
-  height: 4rem;
+  font-size: 1.4rem;
 
   .modal__order__ul {
     width: 100%;
@@ -10,8 +10,9 @@
     &__select {
       margin-top: 10px;
       width: 100%;
-      height: 2.4rem;
-      line-height: 2.4rem;
+      font-size: $font_size-18;
+      height: 3rem;
+      line-height: 3rem;
       border: 1px solid rgb(200, 200, 200);
       border-radius: 5px;
       position: relative;
@@ -40,12 +41,12 @@
 
     .modal__order__ul__select {
       width: 100%;
-      height: 2.4rem;
-      line-height: 2.4rem;
+      height: 3rem;
+      line-height: 3rem;
+      font-size: $font_size-18;
       border: 1px solid rgb(200, 200, 200);
       border-radius: 5px;
       position: relative;
-      overflow: hidden;
       overflow-y: scroll;
       left: 0;
       background-color: #fff;
@@ -58,33 +59,31 @@
 
     .modal__order__list {
       width: 100%;
-      height: 300%;
-      max-height: 200px;
+      height: 500px;
       list-style: none;
-      overflow-y: auto;
       position: absolute;
       margin-top: 0;
+      z-index: 100;
       left: 0;
-      border: 1px solid rgb(200, 200, 200);
       box-sizing: border-box;
       padding: 0;
-      overflow: hidden;
       overflow-y: scroll;
       border-radius: 5px;
       background-color: #fff;
 
       &__item {
+        font-size: 1.4rem;
         width: 100%;
         border: 1px solid rgb(200, 200, 200);
         font-family: $font-family;
         border-radius: 5px;
-        height: 35px;
-        line-height: 35px;
+        height: 3rem;
+        line-height: 3rem;
         cursor: pointer;
 
         button {
           width: 100%;
-          height: 2rem;
+          height: 3rem;
         }
       }
     }

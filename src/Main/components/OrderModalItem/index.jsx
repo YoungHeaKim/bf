@@ -110,7 +110,7 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder, date }) => {
         <DialogTitle className={cx('modal__title')}>
           <div>{propsOrder ? '장부 수정' : '장부 추가'}</div>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ height: '70vh' }}>
           <div className={cx('modal__order')}>
             <SelectStore
               fields={fields}
@@ -148,20 +148,34 @@ const OrderModalItem = ({ open, closeFunc, addFunc, propsOrder, date }) => {
               />
             ))}
           <div className={cx('modal__order')}>
-            <Button onClick={addItem}>물건 추가 등록</Button>
+            <Button style={{ marginLeft: '20px' }} onClick={addItem}>
+              물건 추가 등록
+            </Button>
           </div>
         </DialogContent>
         {error && <div className={cx('modal__order__msg')}>{error}</div>}
         <DialogActions>
-          <Button onClick={changeOrder} color="primary">
+          <Button
+            onClick={changeOrder}
+            color="primary"
+            className={'modal__order--btn'}
+          >
             등록
           </Button>
           {propsOrder && (
-            <Button onClick={deleteOrder} color="primary">
+            <Button
+              onClick={deleteOrder}
+              color="primary"
+              className={'modal__order--btn'}
+            >
               삭제
             </Button>
           )}
-          <Button onClick={closeFunc} color="primary">
+          <Button
+            onClick={closeFunc}
+            color="primary"
+            className={'modal__order--btn'}
+          >
             취소
           </Button>
         </DialogActions>

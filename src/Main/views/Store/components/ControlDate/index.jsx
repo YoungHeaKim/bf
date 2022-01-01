@@ -74,6 +74,8 @@ const ControlDate = ({
   };
 
   const selectDate = date => {
+    console.log('selectCalendar:   ', moment(date).format('YYYY-MM-DD'));
+
     dateFunc(date, type);
     setCalendarOn(false);
   };

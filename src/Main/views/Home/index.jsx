@@ -10,6 +10,7 @@ const Main = () => {
   const [date, setDate] = useState(today);
   const [next, setNextDate] = useState(nextD);
   const [orders, setOrder] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [open, setOpen] = useState(false);
   const [selectBook, setBook] = useState(undefined);
   const [calendarToggle, setCalendarToggle] = useState(false);
@@ -20,7 +21,17 @@ const Main = () => {
     const query = `date>=${moment(preDate).format('YYYY-MM-DD')}&date<${moment(
       nextDate
     ).format('YYYY-MM-DD')}`;
-    return OrderApi.getList(query).then(({ orders }) => setOrder(orders));
+    return OrderApi.getList(query).then(({ orders }) => {
+      orders.map(item => getTotalPrice(item.totalPrice));
+      setOrder(orders);
+    });
+  };
+
+  let total = 0;
+
+  const getTotalPrice = price => {
+    total += price;
+    setTotalPrice(total);
   };
 
   const openModal = book => {
@@ -109,6 +120,7 @@ const Main = () => {
         openModal={openModal}
         closeModal={closeModal}
         open={open}
+        totalPrice={totalPrice}
         selectBook={selectBook}
       />
     </Fragment>
